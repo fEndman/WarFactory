@@ -1,0 +1,1 @@
+__XA_PACKAGE_NAMING_POLICY__=LowercaseCrc64
