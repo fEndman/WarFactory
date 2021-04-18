@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WarFactory.MainPage">
+
+	<NavigationPage.TitleView>
+		<Label
+			Text="战车工厂"
+			TextColor="Black"
+			FontSize="32"
+			HorizontalOptions="Center"/>
+	</NavigationPage.TitleView>
+
+	<RelativeLayout>
+		<ImageButton 
+			x:Name="MirageTankButton"
+			BackgroundColor="Gray"
+			CornerRadius="16"
+			Aspect="AspectFill"
+			Clicked="MirageTankButton_Clicked"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.02}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.02}"
+			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.96}"
+			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.25}"/>
+		<Label
+			Text="幻影坦克"
+			FontSize="28"
+			TextColor="White"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.2}"/>
+		<ImageButton 
+			x:Name="LsbTankButton"
+			BackgroundColor="Gray"
+			CornerRadius="16"
+			Aspect="AspectFill"
+			Clicked="LsbTankButton_Clicked"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.02}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.3}"
+			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.96}"
+			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.275}"/>
+		<Label
+			Text="无影坦克"
+			FontSize="28"
+			TextColor="White"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"/>
+		<Button
+			Text="关于项目"
+			TextColor="Black"
+			FontSize="14"
+			BackgroundColor="LightCyan"
+			CornerRadius="20"
+			Clicked="Button_Clicked"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.02}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.91}"
+			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.22}"
+			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.08}"/>
+
+	</RelativeLayout>
+
+</ContentPage>

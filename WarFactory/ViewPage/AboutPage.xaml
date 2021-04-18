@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WarFactory.ViewPage.AboutPage">
+	
+	<NavigationPage.TitleView>
+		<Label
+			Text="幻影坦克工厂"
+			TextColor="Black"
+			FontSize="Large"
+			HorizontalOptions="Center"/>
+	</NavigationPage.TitleView>
+
+	<StackLayout>
+		<Label
+			Text="免责声明"
+			TextColor="Red"
+			FontSize="32"
+			FontAttributes="Bold"
+			HorizontalTextAlignment="Center"/>
+		<Label
+			Text="本页面仅供技术研究使用，使用者做出的行为及后果作者概不负责！"
+			TextColor="Red"
+			FontSize="24"
+			FontAttributes="Bold"
+			HorizontalTextAlignment="Center"/>
+		<Button
+			Text="GitHub地址"
+			TextColor="Black"
+			TextTransform="None"
+			FontSize="32"
+			BackgroundColor="DeepSkyBlue"
+			CornerRadius="32"
+			HeightRequest="80"
+			Clicked="Button_Clicked"/>
+		<Label
+			Text="作者：f_Endman"
+			TextColor="DimGray"
+			FontSize="24"
+			HorizontalTextAlignment="Center"/>
+	</StackLayout>
+
+</ContentPage>
