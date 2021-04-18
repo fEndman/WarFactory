@@ -17,7 +17,7 @@ namespace WarFactory.ViewPage
     public partial class LsbTankPage : ContentPage
     {
         byte[] compressArray = { 1, 2, 4 };
-        byte compression = 1;
+        byte compression = 4;
 
         string insideFileName = null;
         private FileResult photoFile1 = null;
@@ -42,7 +42,8 @@ namespace WarFactory.ViewPage
 
         private async void Image2_Clicked(object sender, EventArgs e)
         {
-            photoFile2 = await MediaPicker.PickPhotoAsync();
+            //photoFile2 = await MediaPicker.PickPhotoAsync();
+            photoFile2 = await FilePicker.PickAsync();  //可选取其他文件作为里图
             if (photoFile2 == null)
                 return;
             else
@@ -151,7 +152,7 @@ namespace WarFactory.ViewPage
 
         private async void Button_Clicked_4(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new CourseForMirageTank());
+            await Navigation.PushAsync(new CourseForLsbTank());
         }
 
         private void Stepper_ValueChanged(object sender, ValueChangedEventArgs e)

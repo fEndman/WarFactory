@@ -32,6 +32,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="ViewPage\CourseForLsbTank.xaml.cs">
+      <DependentUpon>CourseForLsbTank.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="ViewPage\AboutPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

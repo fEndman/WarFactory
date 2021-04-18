@@ -71,6 +71,7 @@
 		<Stepper
 			x:Name="Stepper1"
 			Maximum="2"
+			Value="2"
 			ScaleX="0.6"
 			ValueChanged="Stepper_ValueChanged"
 			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.05}"
@@ -117,6 +118,17 @@
 			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.9}"
 			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.38}"
 			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.08}"/>
+		<Button
+			Text="使用方法"
+			TextColor="Black"
+			FontSize="14"
+			BackgroundColor="LightCyan"
+			CornerRadius="20"
+			Clicked="Button_Clicked_4"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.02}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.92}"
+			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.24}"
+			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.06}"/>
 		<Label
 			Text="压缩度："
 			FontSize="20"
@@ -125,7 +137,7 @@
 			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.28}"/>
 		<Label
 			x:Name="Label1"
-			Text="1"
+			Text="4"
 			FontSize="20"
 			TextColor="Black" 
 			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.52}"

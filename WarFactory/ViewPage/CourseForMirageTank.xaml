@@ -11,7 +11,7 @@
 		Text="
 			1.点击最上方两个空白图片即可选择表图和里图&#10;
 			2.点击生成并稍等片刻即可生成幻影坦克&#10;
-			3.点击保存即可保存至手机内/Picture/MirageTank目录中，也可在相册MirageTank中找到&#10;"
+			3.点击保存即可保存至手机内/Picture/WarFactory目录中，也可在相册WarFactory中找到&#10;"
 		FontSize="16"/>
 		<Label
 		Text="PS:"

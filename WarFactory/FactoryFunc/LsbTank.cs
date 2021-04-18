@@ -110,19 +110,21 @@ namespace WarFactory.FactoryFunc
             tankByteArray[2] |= (byte)(compress & 0x7);
 
             //---LSB隐写---//
-            int bitCount = 8, snCount = 0;
+            int bitCount = 8, Count = 0, snCount = 0;
+            byte[] insPicByteArray = insPicByteList.ToArray();  //直接用List速度比较慢
+            insPicByteList.Clear();
             for (int i = 3; i < tankByteArray.Length; i++)
             {
                 tankByteArray[i] &= (byte)~lsbMask[compress - 1];   //清除低n位
-                tankByteArray[i] |= (byte)(insPicByteList[0] >> (8 - compress) & lsbMask[compress - 1]);  //由于每写完一个字节就将其删除，所以第0个元素总是最新的
-                insPicByteList[0] <<= compress;
+                tankByteArray[i] |= (byte)(insPicByteArray[Count] >> (8 - compress) & lsbMask[compress - 1]);
+                insPicByteArray[Count] <<= compress;
                 if ((bitCount -= compress) == 0)
                 {
                     bitCount = 8;
-                    if (insPicByteList.Count != 0)
-                        insPicByteList.RemoveAt(0); //每写入完成一个字节就删除它
-                    if (insPicByteList.Count == 0)
-                        insPicByteList.Add((byte)signature[snCount++ % signature.Length]);
+                    if (Count < insPicByteArray.Length - 1)
+                        Count++;
+                    else
+                        insPicByteArray[Count] = ((byte)signature[snCount++ % signature.Length]);
                 }
             }
 

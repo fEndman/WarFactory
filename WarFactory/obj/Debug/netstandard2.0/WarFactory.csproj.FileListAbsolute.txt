@@ -17,3 +17,4 @@ E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\ViewPage\ImagePage.xaml.g.cs
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\ViewPage\CourseForMirageTank.xaml.g.cs
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\ViewPage\LsbTankPage.xaml.g.cs
+E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\ViewPage\CourseForLsbTank.xaml.g.cs

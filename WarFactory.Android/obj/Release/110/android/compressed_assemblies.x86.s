@@ -25,7 +25,7 @@
 
 	/* 2: Mono.Android.dll */
 	/* uncompressed_file_size */
-	.long	2142720
+	.long	2144768
 	/* loaded */
 	.byte	0
 	/* data */
@@ -133,7 +133,7 @@
 
 	/* 14: WarFactory.dll */
 	/* uncompressed_file_size */
-	.long	923648
+	.long	927744
 	/* loaded */
 	.byte	0
 	/* data */
@@ -511,7 +511,7 @@
 
 	/* 56: Xamarin.Essentials.dll */
 	/* uncompressed_file_size */
-	.long	44032
+	.long	49664
 	/* loaded */
 	.byte	0
 	/* data */
