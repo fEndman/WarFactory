@@ -24,6 +24,7 @@ namespace WarFactory.FactoryFunc
             {
                 int tmpValue = (int)(GetGrayNumColor(photo2ColorArray[i]) * photo2K);
                 if (tmpValue > threshold) tmpValue = threshold;
+                if (tmpValue < 1) tmpValue = 1;
                 photo2ColorArray[i] = new SKColor((byte)tmpValue, (byte)tmpValue, (byte)tmpValue);
             }
             photo2.Pixels = photo2ColorArray;

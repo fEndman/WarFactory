@@ -15,10 +15,12 @@
      limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="androidx.customview" >
+    package="androidx.core" >
 
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="29" />
+
+    <application android:appComponentFactory="androidx.core.app.CoreComponentFactory" />
 
 </manifest>

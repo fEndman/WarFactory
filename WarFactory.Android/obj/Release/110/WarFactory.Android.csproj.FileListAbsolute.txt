@@ -488,3 +488,4 @@ E:\00Project\Android Project\Xamarin\WarFactory\WarFactory.Android\obj\Release\1
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory.Android\obj\Release\110\stamp\_GenerateJavaStubs.stamp
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory.Android\obj\Release\110\stamp\_GeneratePackageManagerJava.stamp
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory.Android\obj\Release\110\stamp\_ResolveLibraryProjectImports.stamp
+E:\00Project\Android Project\Xamarin\WarFactory\WarFactory.Android\obj\Release\110\android\src\xamarin\essentials\fileProvider.java

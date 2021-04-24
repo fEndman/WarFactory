@@ -37,56 +37,56 @@
 	.section	.rodata.map_aname.6,"aMS",%progbits,1
 	.type	.L.map_aname.6, %object
 .L.map_aname.6:
-	.asciz	"Xamarin.AndroidX.CustomView"
-	.size	.L.map_aname.6, 28
+	.asciz	"Mono.Android"
+	.size	.L.map_aname.6, 13
 
 	.section	.rodata.map_aname.7,"aMS",%progbits,1
 	.type	.L.map_aname.7, %object
 .L.map_aname.7:
-	.asciz	"Xamarin.AndroidX.Fragment"
-	.size	.L.map_aname.7, 26
+	.asciz	"Xamarin.AndroidX.CustomView"
+	.size	.L.map_aname.7, 28
 
 	.section	.rodata.map_aname.8,"aMS",%progbits,1
 	.type	.L.map_aname.8, %object
 .L.map_aname.8:
-	.asciz	"Xamarin.AndroidX.Lifecycle.ViewModel"
-	.size	.L.map_aname.8, 37
+	.asciz	"Xamarin.AndroidX.Fragment"
+	.size	.L.map_aname.8, 26
 
 	.section	.rodata.map_aname.9,"aMS",%progbits,1
 	.type	.L.map_aname.9, %object
 .L.map_aname.9:
-	.asciz	"Xamarin.AndroidX.DrawerLayout"
-	.size	.L.map_aname.9, 30
+	.asciz	"Xamarin.Essentials"
+	.size	.L.map_aname.9, 19
 
 	.section	.rodata.map_aname.10,"aMS",%progbits,1
 	.type	.L.map_aname.10, %object
 .L.map_aname.10:
-	.asciz	"Xamarin.AndroidX.CardView"
-	.size	.L.map_aname.10, 26
+	.asciz	"Xamarin.AndroidX.Lifecycle.ViewModel"
+	.size	.L.map_aname.10, 37
 
 	.section	.rodata.map_aname.11,"aMS",%progbits,1
 	.type	.L.map_aname.11, %object
 .L.map_aname.11:
-	.asciz	"WarFactory.Android"
-	.size	.L.map_aname.11, 19
+	.asciz	"Xamarin.AndroidX.DrawerLayout"
+	.size	.L.map_aname.11, 30
 
 	.section	.rodata.map_aname.12,"aMS",%progbits,1
 	.type	.L.map_aname.12, %object
 .L.map_aname.12:
-	.asciz	"Xamarin.AndroidX.RecyclerView"
-	.size	.L.map_aname.12, 30
+	.asciz	"Xamarin.AndroidX.CardView"
+	.size	.L.map_aname.12, 26
 
 	.section	.rodata.map_aname.13,"aMS",%progbits,1
 	.type	.L.map_aname.13, %object
 .L.map_aname.13:
-	.asciz	"Xamarin.AndroidX.CoordinatorLayout"
-	.size	.L.map_aname.13, 35
+	.asciz	"Xamarin.AndroidX.RecyclerView"
+	.size	.L.map_aname.13, 30
 
 	.section	.rodata.map_aname.14,"aMS",%progbits,1
 	.type	.L.map_aname.14, %object
 .L.map_aname.14:
-	.asciz	"Mono.Android"
-	.size	.L.map_aname.14, 13
+	.asciz	"Xamarin.AndroidX.CoordinatorLayout"
+	.size	.L.map_aname.14, 35
 
 	.section	.rodata.map_aname.15,"aMS",%progbits,1
 	.type	.L.map_aname.15, %object
@@ -151,6 +151,6 @@
 	.section	.rodata.map_aname.25,"aMS",%progbits,1
 	.type	.L.map_aname.25, %object
 .L.map_aname.25:
-	.asciz	"Xamarin.Essentials"
+	.asciz	"WarFactory.Android"
 	.size	.L.map_aname.25, 19
 

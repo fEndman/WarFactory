@@ -46,7 +46,7 @@
 
 	/* 2: Mono.Android.dll */
 	/* uncompressed_file_size */
-	.long	2144768
+	.long	2158080
 	/* loaded */
 	.byte	0
 	/* data */
@@ -82,7 +82,7 @@
 
 	/* 6: System.Drawing.Common.dll */
 	/* uncompressed_file_size */
-	.long	19968
+	.long	20992
 	/* loaded */
 	.byte	0
 	/* data */
@@ -145,7 +145,7 @@
 
 	/* 13: WarFactory.Android.dll */
 	/* uncompressed_file_size */
-	.long	304640
+	.long	305664
 	/* loaded */
 	.byte	0
 	/* data */
@@ -154,7 +154,7 @@
 
 	/* 14: WarFactory.dll */
 	/* uncompressed_file_size */
-	.long	927744
+	.long	1007104
 	/* loaded */
 	.byte	0
 	/* data */
@@ -271,7 +271,7 @@
 
 	/* 27: Xamarin.AndroidX.Core.dll */
 	/* uncompressed_file_size */
-	.long	573952
+	.long	581632
 	/* loaded */
 	.byte	0
 	/* data */
@@ -532,7 +532,7 @@
 
 	/* 56: Xamarin.Essentials.dll */
 	/* uncompressed_file_size */
-	.long	49664
+	.long	53760
 	/* loaded */
 	.byte	0
 	/* data */

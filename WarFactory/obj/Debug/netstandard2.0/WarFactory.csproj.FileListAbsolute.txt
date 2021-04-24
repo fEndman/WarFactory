@@ -2,7 +2,6 @@ E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\bin\Debug\netstandard
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\bin\Debug\netstandard2.0\WarFactory.dll
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\bin\Debug\netstandard2.0\ref\WarFactory.dll
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\bin\Debug\netstandard2.0\WarFactory.pdb
-E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\WarFactory.csprojAssemblyReference.cache
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\App.xaml.g.cs
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\WarFactory.AssemblyInfoInputs.cache
@@ -18,3 +17,5 @@ E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\ViewPage\CourseForMirageTank.xaml.g.cs
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\ViewPage\LsbTankPage.xaml.g.cs
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\ViewPage\CourseForLsbTank.xaml.g.cs
+E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\ViewPage\ImageListPage.xaml.g.cs
+E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\ViewPage\MirageTankSettingPage.xaml.g.cs

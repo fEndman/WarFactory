@@ -5,12 +5,17 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using WarFactory.MyInterface;
 using Environment = Android.OS.Environment;
+using Uri = Android.Net.Uri;
+using Android.Content;
+using Android.App;
 
-[assembly: Dependency(typeof(WarFactory.Droid.SaveFileService))]
+[assembly: Dependency(typeof(WarFactory.Droid.PlatformService))]
 namespace WarFactory.Droid
 {
-    public class SaveFileService : ISaveFileService
+    public class PlatformService : IPlatformService
     {
+        private string folder = "战车工厂";
+
         public async Task<string> ImageSave(MemoryStream stream, string fileName = null)
         {
             await Permissions.RequestAsync<Permissions.StorageWrite>();
@@ -18,7 +23,7 @@ namespace WarFactory.Droid
             await Permissions.RequestAsync<Permissions.StorageRead>();
             if (Permissions.ShouldShowRationale<Permissions.StorageRead>()) return "...保存个屁！不给爷权限还想让爷给你造坦克？";
 
-            string path = Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, Environment.DirectoryPictures, "WarFactory");
+            string path = Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, Environment.DirectoryPictures, folder);
             if (fileName == null || fileName == "") fileName = "Tank_" + DateTime.Now.ToLocalTime().ToString("yyyyMMdd_HHmmss") + ".png";
 
             if (Directory.Exists(path) == false)
@@ -32,7 +37,23 @@ namespace WarFactory.Droid
             photoTankFile.Flush();
             photoTankFile.Close();
 
-            return (Environment.DirectoryPictures + "/WarFactory/" + fileName);
+            return Path.Combine(fileName);
+        }
+
+        public async Task RequestPermissions()
+        {
+            await Permissions.RequestAsync<Permissions.StorageWrite>();
+            if (Permissions.ShouldShowRationale<Permissions.StorageWrite>()) return;
+            await Permissions.RequestAsync<Permissions.StorageRead>();
+            if (Permissions.ShouldShowRationale<Permissions.StorageRead>()) return;
+        }
+        public string GetAbsoluteSavePath()
+        {
+            return Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, Environment.DirectoryPictures, folder);
+        }
+        public string GetSavePath()
+        {
+            return Path.Combine(Environment.DirectoryPictures, folder);
         }
     }
 }

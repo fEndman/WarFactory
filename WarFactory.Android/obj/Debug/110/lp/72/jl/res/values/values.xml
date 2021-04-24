@@ -1,80 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="AnimatedStateListDrawableCompat">
-        <!-- Indicates whether the drawable should be initially visible. -->
-        <attr name="android:visible"/>
-        <!-- If true, allows the drawable's padding to change based on the
-             current state that is selected.  If false, the padding will
-             stay the same (based on the maximum padding of all the states).
-             Enabling this feature requires that the owner of the drawable
-             deal with performing layout when the state changes, which is
-             often not supported. -->
-        <attr name="android:variablePadding"/>
-        <!-- If true, the drawable's reported internal size will remain
-             constant as the state changes; the size is the maximum of all
-             of the states.  If false, the size will vary based on the
-             current state. -->
-        <attr name="android:constantSize"/>
-        <!-- Enables or disables dithering of the bitmap if the bitmap does not have the
-             same pixel configuration as the screen (for instance: a ARGB 8888 bitmap with
-             an RGB 565 screen). -->
-        <attr name="android:dither"/>
-        <!-- Amount of time (in milliseconds) to fade in a new state drawable. -->
-        <attr name="android:enterFadeDuration"/>
-        <!-- Amount of time (in milliseconds) to fade out an old state drawable. -->
-        <attr name="android:exitFadeDuration"/>
-        <!-- Indicates if the drawable needs to be mirrored when its layout direction is
-             RTL (right-to-left). -->
-        <!--<attr name="autoMirrored"/>-->
+    <attr format="reference" name="cardViewStyle"/>
+    <color name="cardview_dark_background">#FF424242</color>
+    <color name="cardview_light_background">#FFFFFFFF</color>
+    <color name="cardview_shadow_end_color">#03000000</color>
+    <color name="cardview_shadow_start_color">#37000000</color>
+    <declare-styleable name="CardView">
+        <!-- Background color for CardView. -->
+        <attr format="color" name="cardBackgroundColor"/>
+        <!-- Corner radius for CardView. -->
+        <attr format="dimension" name="cardCornerRadius"/>
+        <!-- Elevation for CardView. -->
+        <attr format="dimension" name="cardElevation"/>
+        <!-- Maximum Elevation for CardView. -->
+        <attr format="dimension" name="cardMaxElevation"/>
+        <!-- Add padding in API v21+ as well to have the same measurements with previous versions. -->
+        <attr format="boolean" name="cardUseCompatPadding"/>
+        <!-- Add padding to CardView on v20 and before to prevent intersections between the Card content and rounded corners. -->
+        <attr format="boolean" name="cardPreventCornerOverlap"/>
+        <!-- Inner padding between the edges of the Card and children of the CardView. -->
+        <attr format="dimension" name="contentPadding"/>
+        <!-- Inner padding between the left edge of the Card and children of the CardView. -->
+        <attr format="dimension" name="contentPaddingLeft"/>
+        <!-- Inner padding between the right edge of the Card and children of the CardView. -->
+        <attr format="dimension" name="contentPaddingRight"/>
+        <!-- Inner padding between the top edge of the Card and children of the CardView. -->
+        <attr format="dimension" name="contentPaddingTop"/>
+        <!-- Inner padding between the bottom edge of the Card and children of the CardView. -->
+        <attr format="dimension" name="contentPaddingBottom"/>
+        <!-- Workaround to read user defined minimum width -->
+        <attr name="android:minWidth"/>
+        <!-- Workaround to read user defined minimum height -->
+        <attr name="android:minHeight"/>
     </declare-styleable>
-    <declare-styleable name="AnimatedStateListDrawableItem">
-        <!-- Reference to a drawable resource to use for the frame.  If not
-             given, the drawable must be defined by the first child tag. -->
-        <attr name="android:drawable"/>
-        <!-- Keyframe identifier for use in specifying transitions. -->
-        <attr name="android:id"/>
-    </declare-styleable>
-    <declare-styleable name="AnimatedStateListDrawableTransition">
-        <!-- Keyframe identifier for the starting state. -->
-        <attr name="android:fromId"/>
-        <!-- Keyframe identifier for the ending state. -->
-        <attr name="android:toId"/>
-        <!-- Reference to a animation drawable resource to use for the frame.  If not
-             given, the animation drawable must be defined by the first child tag. -->
-        <attr name="android:drawable"/>
-        <!-- Whether this transition is reversible. -->
-        <attr name="android:reversible"/>
-    </declare-styleable>
-    <declare-styleable name="StateListDrawable">
-        <!-- Indicates whether the drawable should be initially visible. -->
-        <attr name="android:visible"/>
-        <!-- If true, allows the drawable's padding to change based on the
-             current state that is selected.  If false, the padding will
-             stay the same (based on the maximum padding of all the states).
-             Enabling this feature requires that the owner of the drawable
-             deal with performing layout when the state changes, which is
-             often not supported. -->
-        <attr name="android:variablePadding"/>
-        <!-- If true, the drawable's reported internal size will remain
-             constant as the state changes; the size is the maximum of all
-             of the states.  If false, the size will vary based on the
-             current state. -->
-        <attr name="android:constantSize"/>
-        <!-- Enables or disables dithering of the bitmap if the bitmap does not have the
-             same pixel configuration as the screen (for instance: a ARGB 8888 bitmap with
-             an RGB 565 screen). -->
-        <attr name="android:dither"/>
-        <!-- Amount of time (in milliseconds) to fade in a new state drawable. -->
-        <attr name="android:enterFadeDuration"/>
-        <!-- Amount of time (in milliseconds) to fade out an old state drawable. -->
-        <attr name="android:exitFadeDuration"/>
-        <!-- Indicates if the drawable needs to be mirrored when its layout direction is
-             RTL (right-to-left). -->
-        <!--<attr name="autoMirrored"/>-->
-    </declare-styleable>
-    <declare-styleable name="StateListDrawableItem">
-        <!-- Reference to a drawable resource to use for the state. If not
-             given, the drawable must be defined by the first child tag. -->
-        <attr name="android:drawable"/>
-    </declare-styleable>
+    <dimen name="cardview_compat_inset_shadow">1dp</dimen>
+    <dimen name="cardview_default_elevation">2dp</dimen>
+    <dimen name="cardview_default_radius">2dp</dimen>
+    <style name="Base.CardView" parent="android:Widget">
+        <item name="cardCornerRadius">@dimen/cardview_default_radius</item>
+        <item name="cardElevation">@dimen/cardview_default_elevation</item>
+        <item name="cardMaxElevation">@dimen/cardview_default_elevation</item>
+        <item name="cardUseCompatPadding">false</item>
+        <item name="cardPreventCornerOverlap">true</item>
+    </style>
+    <style name="CardView" parent="Base.CardView">
+    </style>
+    <style name="CardView.Dark">
+        <item name="cardBackgroundColor">@color/cardview_dark_background</item>
+    </style>
+    <style name="CardView.Light">
+        <item name="cardBackgroundColor">@color/cardview_light_background</item>
+    </style>
 </resources>

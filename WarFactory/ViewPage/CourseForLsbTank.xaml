@@ -2,28 +2,35 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WarFactory.ViewPage.CourseForLsbTank">
-    <StackLayout>
+
+	<NavigationPage.TitleView>
 		<Label
-		Text="使用方法:"
-		TextColor="DimGray"
-		FontSize="20"/>
+			Text="使用方法"
+			TextColor="Black"
+			FontSize="28"
+			HorizontalOptions="Center"/>
+	</NavigationPage.TitleView>
+
+	<StackLayout>
 		<Label
-		Text="
-			1.点击最上方两个空白图片即可选择表图和里图&#10;
-			2.点击生成并稍等片刻即可生成无影坦克&#10;
-			3.点击中间左侧的空白图片即可选择要现形的无影坦克图&#10;
-			4.点击现形并稍等片刻即可现形无影坦克&#10;
-			5.点击生成的图片可查看大图&#10;
-			6.点击保存即可保存至手机内/Picture/WarFactory目录中，也可在相册WarFactory中找到&#10;"
-		FontSize="16"/>
+			Text="
+				1.点击最上方两个空白图片即可选择表图和里图&#10;
+				2.点击生成并稍等片刻即可生成无影坦克&#10;
+				3.点击中间左侧的空白图片即可选择要现形的无影坦克图（可多选）&#10;
+				4.点击现形并稍等片刻即可现形无影坦克&#10;
+				5.点击图片可查看大图&#10;
+				6.点击保存即可保存至手机内/Picture/战车工厂 目录中，也可在相册 战车工厂 中找到&#10;"
+			TextColor="DimGray"
+			FontSize="20"/>
 		<Label
-		Text="PS:"
-		TextColor="DimGray"
-		FontSize="20"/>
+			Text="PS:"
+			TextColor="DimGray"
+			FontSize="20"/>
 		<Label
-		Text="
-			1.生成按钮左侧的压缩度用于调整表图的压缩度（对应LSB隐写的位数），压缩度越大生成的图片越小，噪点越多&#10;
-			2.喜闻乐见的隐藏视频，也可被正常生成和现形&#10;"
-		FontSize="16"/>
+			Text="
+				1.生成按钮左侧的压缩度用于调整表图的压缩度（对应LSB隐写的位数），压缩度越大生成的图片越小，噪点越多&#10;
+				2.喜闻乐见的隐藏视频，也可被正常生成和现形&#10;"
+			FontSize="16"/>
 	</StackLayout>
 </ContentPage>
+	

@@ -16,10 +16,23 @@ namespace WarFactory.ViewPage
         public AboutPage()
         {
             InitializeComponent();
+            Button1.ImageSource = ImageSource.FromResource("WarFactory.Resources.GitHub.png");
+            Button2.ImageSource = ImageSource.FromResource("WarFactory.Resources.Tieba.png");
+            Button3.ImageSource = ImageSource.FromResource("WarFactory.Resources.NetDisk.png");
         }
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void Button1_Clicked(object sender, EventArgs e)
         {
             await Browser.OpenAsync("https://github.com/fEndman/WarFactory");
+        }
+
+        private async void Button2_Clicked(object sender, EventArgs e)
+        {
+            await Browser.OpenAsync("https://tieba.baidu.com/p/7308042884");
+        }
+
+        private async void Button3_Clicked(object sender, EventArgs e)
+        {
+            await Browser.OpenAsync("https://pan.baidu.com/s/1B9Aw7J_cKA6W5GwNodRzPA");
         }
     }
 }

@@ -58,6 +58,9 @@ xamarin.essentials.ActivityLifecycleContextListener;crc64a0e0a82d0db9a07d.Activi
 Xamarin.Essentials.IntermediateActivity, Xamarin.Essentials;crc64a0e0a82d0db9a07d.IntermediateActivity
 Xamarin.Essentials.IntermediateActivity;crc64a0e0a82d0db9a07d.IntermediateActivity
 xamarin.essentials.IntermediateActivity;crc64a0e0a82d0db9a07d.IntermediateActivity
+Xamarin.Essentials.FileProvider, Xamarin.Essentials;xamarin.essentials.fileProvider
+Xamarin.Essentials.FileProvider;xamarin.essentials.fileProvider
+xamarin.essentials.fileProvider;xamarin.essentials.fileProvider
 Xamarin.Forms.Platform.Android.AndroidActivity, Xamarin.Forms.Platform.Android;crc643f46942d9dd1fff9.AndroidActivity
 Xamarin.Forms.Platform.Android.AndroidActivity;crc643f46942d9dd1fff9.AndroidActivity
 xamarin.forms.platform.android.AndroidActivity;crc643f46942d9dd1fff9.AndroidActivity

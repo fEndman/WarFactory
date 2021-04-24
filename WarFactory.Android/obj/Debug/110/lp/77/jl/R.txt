@@ -9,11 +9,12 @@ int attr fontProviderQuery 0x0
 int attr fontStyle 0x0
 int attr fontVariationSettings 0x0
 int attr fontWeight 0x0
+int attr swipeRefreshLayoutProgressSpinnerBackgroundColor 0x0
 int attr ttcIndex 0x0
-int color androidx_core_ripple_material_light 0x0
-int color androidx_core_secondary_text_default_material_light 0x0
 int color notification_action_color_filter 0x0
 int color notification_icon_bg_color 0x0
+int color ripple_material_light 0x0
+int color secondary_text_default_material_light 0x0
 int dimen compat_button_inset_horizontal_material 0x0
 int dimen compat_button_inset_vertical_material 0x0
 int dimen compat_button_padding_horizontal_material 0x0
@@ -169,3 +170,5 @@ int styleable GradientColor_android_type 11
 int[] styleable GradientColorItem { 0x10101a5, 0x1010514 }
 int styleable GradientColorItem_android_color 0
 int styleable GradientColorItem_android_offset 1
+int[] styleable SwipeRefreshLayout { 0x0 }
+int styleable SwipeRefreshLayout_swipeRefreshLayoutProgressSpinnerBackgroundColor 0

@@ -17,3 +17,5 @@ E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\bin\Release\netstanda
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\bin\Release\netstandard2.0\WarFactory.pdb
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Release\netstandard2.0\XamlC.stamp
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Release\netstandard2.0\ViewPage\CourseForLsbTank.xaml.g.cs
+E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Release\netstandard2.0\ViewPage\ImageListPage.xaml.g.cs
+E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Release\netstandard2.0\ViewPage\MirageTankSettingPage.xaml.g.cs

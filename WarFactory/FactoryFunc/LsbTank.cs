@@ -8,7 +8,7 @@ namespace WarFactory.FactoryFunc
 {
     class LsbTank
     {
-        static public byte[] Encode(FileStream surPicFile, FileStream insPicFile, int compress)
+        static public MemoryStream Encode(FileStream surPicFile, FileStream insPicFile, int compress)
         {
             if (compress == 0 || compress == 3 || compress >= 5) return null;
 
@@ -54,7 +54,7 @@ namespace WarFactory.FactoryFunc
              * '\1'
              * 里文件名称
              * '\1'
-             * 里文件格式（特定字符串）：目前我见过的原作者写的有"image/jpeg"和"image/png"两种，这个应该是关系到网页版解码后显示（我本业是嵌入式，让我完全弄明白这玩意就是难为我QWQ）
+             * 里文件格式（特定字符串）：目前我见过的原作者写的有"image/jpeg"和"image/png"和"image/png"三种，这个应该是关系到网页版解码后显示（我本业是嵌入式，让我完全弄明白这玩意就是难为我QWQ）
              * '\0'
              */
             List<byte> insPicByteList = new List<byte>();
@@ -73,6 +73,8 @@ namespace WarFactory.FactoryFunc
             char[] insFormat = null;
             if (insPicFile.Name.Substring(insPicFile.Name.LastIndexOf(".") + 1) == "png")
                 insFormat = "image/png".ToString().ToCharArray();
+            else if (insPicFile.Name.Substring(insPicFile.Name.LastIndexOf(".") + 1) == "gif")
+                insFormat = "image/gif".ToString().ToCharArray();
             else
                 insFormat = "image/jpeg".ToString().ToCharArray();
             for (int i = 0; i < insFormat.Length; i++)
@@ -134,21 +136,21 @@ namespace WarFactory.FactoryFunc
 
             byte[] tankPicArray = tankPic.Encode(SKEncodedImageFormat.Png, 100).ToArray();
 
-            return tankPicArray;
+            return new MemoryStream(tankPicArray);
         }
 
-        static public byte[] Decode(FileStream tankPicFile, out string lsbFileName)
+        static public MemoryStream Decode(FileStream tankPicFile, out string lsbFileName)
         {
-            byte[] lsbMask = { 0x1, 0x3, 0x7, 0xF };
+            byte[] lsbMask = { 0x1, 0x3, 0x7, 0xF, 0x1F };
             SKColor[] sPicColorArray = null;
             lsbFileName = "";
 
             SKBitmap sPic = SKBitmap.Decode(tankPicFile);
+            if (sPic == null) return null;
 
             sPicColorArray = sPic.Pixels;
             byte[] sPicByteArray = new byte[sPicColorArray.Length * 3];
             List<byte> lsbByte = new List<byte>();
-
 
             //读取所有像素的RGB字节
             for (int i = 0; i < sPicColorArray.Length; i++)
@@ -162,45 +164,28 @@ namespace WarFactory.FactoryFunc
             /* 原图数据前三个字节推测如下：
              *  Byte[0]:低3位固定为0x0
              *  Byte[1]:低3位固定为0x3
-             *  Byte[2]:低3位数据为LSB隐写的位数，对应网页版的压缩度    1 <= (Byte[2] & 0x7) <= 4
+             *  Byte[2]:低3位数据为LSB隐写的位数，对应网页版的压缩度    1 <= (Byte[2] & 0x7) <= 5
              */
             if ((sPicByteArray[0] & 0x7) != 0x0 ||
                 (sPicByteArray[1] & 0x7) != 0x3 ||
                 (sPicByteArray[2] & 0x7) == 0 ||
-                (sPicByteArray[2] & 0x7) >= 5)
+                (sPicByteArray[2] & 0x7) > 5)
                 return null;
             int lsbCompress = sPicByteArray[2] & 0x7;
 
             //反正就是把LSB数据都读出来了，具体细节很烦，用到了一堆位运算
-            if (lsbCompress == 3)    //3位LSB隐写因为不能被2整除所以处理起来很特殊，我采用一次性读取24位LSB数据
+            int Fifo = 0;   //先进先出，用于缓存LSB
+            int FifoCount = 0;   //已经读取的LSB数量
+            for (int i = 0; i < sPicByteArray.Length - 2; i++)
             {
-                int temp = 0;
-                for (int i = 0; i < (sPicByteArray.Length - 2) / 8; i++)
+                Fifo |= (sPicByteArray[i + 2]) & lsbMask[lsbCompress - 1];
+                if (FifoCount >= 8)   //已经读取了一个字节
                 {
-                    temp = 0;
-                    for (int j = 0; j < 8; j++)
-                    {
-                        temp <<= 3;
-                        temp |= (byte)((sPicByteArray[(i * 8) + j + 3]) & 0x7);
-                    }
-                    lsbByte.Add((byte)((temp >> 16) & 0xFF));
-                    lsbByte.Add((byte)((temp >> 8) & 0xFF));
-                    lsbByte.Add((byte)((temp) & 0xFF));
+                    lsbByte.Add((byte)((Fifo >> (FifoCount - 8)) & 0xFF));
+                    FifoCount -= 8;
                 }
-            }
-            else
-            {
-                byte temp = 0;
-                for (int i = 0; i < sPicByteArray.Length - 2; i++)
-                {
-                    temp |= (byte)((sPicByteArray[i + 2]) & lsbMask[lsbCompress - 1]);
-                    if (i % (8 / lsbCompress) == 0 && i != 0)
-                    {
-                        lsbByte.Add(temp);
-                        temp = 0;
-                    }
-                    temp <<= lsbCompress;
-                }
+                Fifo <<= lsbCompress;
+                FifoCount += lsbCompress;
             }
 
             //循环检测至少256个字节来获取LSB文件信息
@@ -229,10 +214,12 @@ namespace WarFactory.FactoryFunc
             if (offset == 0xFF) return null;
             offset++;
 
+            int LsbCount = 0;
+            if(int.TryParse(sLsbCount, out LsbCount) == false)return null;
             int lsbCount = int.Parse(sLsbCount);
             byte[] lsbByteArray = lsbByte.GetRange(offset, lsbCount).ToArray();
 
-            return lsbByteArray;
+            return new MemoryStream(lsbByteArray);
         }
     }
 }

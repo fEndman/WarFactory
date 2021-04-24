@@ -21,9 +21,13 @@ namespace WarFactory.ViewPage
 
         public MemoryStream photoTankStream = new MemoryStream();
 
-        private float photo1_K = 1.2f;
-        private float photo2_K = 0.6f;
-        private byte photoThreshold = 110;
+        private static float photo1_K = 1.2f;
+        private static float photo2_K = 0.6f;
+        private static byte photoThreshold = 110;
+
+        public static float Photo1_K { get {return photo1_K; } set { photo1_K = value; } }
+        public static float Photo2_K { get { return photo2_K; } set { photo2_K = value; } }
+        public static byte PhotoThreshold { get { return photoThreshold; } set { photoThreshold = value; } }
 
         public MirageTankPage()
         {
@@ -109,8 +113,9 @@ namespace WarFactory.ViewPage
         {
             if (photoTankStream.Length != 0)
             {
-                string path = await DependencyService.Get<ISaveFileService>().ImageSave(photoTankStream);
-                await DisplayAlert("完成", "已保存至：\n" + path + "\n可在WarFactory相册中找到", "确认");
+                string path = DependencyService.Get<IPlatformService>().GetSavePath();
+                path += await DependencyService.Get<IPlatformService>().ImageSave(photoTankStream);
+                await DisplayAlert("完成", "已保存至：\n" + path + "\n可在 战车工厂 相册中找到", "确认");
             }
             else
             {
@@ -123,28 +128,10 @@ namespace WarFactory.ViewPage
             await Navigation.PushAsync(new CourseForMirageTank());
         }
 
-        private void Entry1_Completed(object sender, EventArgs e)
-        {
-            float.TryParse(Entry1.Text, out photo1_K);
-            if (photo1_K > 10f) photo1_K = 10f;
-            if (photo1_K < 0.6f) photo1_K = 0.6f;
-            Entry1.Text = photo1_K.ToString("F2");
-        }
 
-        private void Entry2_Completed(object sender, EventArgs e)
+        private async void Button_Clicked_4(object sender, EventArgs e)
         {
-            float.TryParse(Entry2.Text, out photo2_K);
-            if (photo2_K > 1.4f) photo2_K = 1.4f;
-            if (photo2_K < 0.01f) photo2_K = 0.01f;
-            Entry2.Text = photo2_K.ToString("F2");
-        }
-
-        private void Entry3_Completed(object sender, EventArgs e)
-        {
-            byte.TryParse(Entry3.Text, out photoThreshold);
-            if (photoThreshold > 200) photoThreshold = 200;
-            if (photoThreshold < 50) photoThreshold = 50;
-            Entry3.Text = photoThreshold.ToString("D3");
+            await Navigation.PushAsync(new MirageTankSettingPage());
         }
     }
 }
