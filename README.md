@@ -5,7 +5,7 @@
 
 发布版APK文件附在GitHub项目根目录，方便在网盘挂掉后获取下载更新。  
 你也可以在百度网盘下载已经打包好的APK文件: https://pan.baidu.com/s/1B9Aw7J_cKA6W5GwNodRzPA 提取码：pbd6   
-百度贴吧帖子:  
+百度贴吧帖子: https://tieba.baidu.com/p/7308060718 https://tieba.baidu.com/p/7308042884  
 
 **使用方法详见APP内部**  
 
