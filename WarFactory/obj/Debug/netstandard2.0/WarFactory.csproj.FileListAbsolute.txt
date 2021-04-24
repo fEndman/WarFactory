@@ -19,3 +19,4 @@ E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\ViewPage\CourseForLsbTank.xaml.g.cs
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\ViewPage\ImageListPage.xaml.g.cs
 E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\ViewPage\MirageTankSettingPage.xaml.g.cs
+E:\00Project\Android Project\Xamarin\WarFactory\WarFactory\obj\Debug\netstandard2.0\WarFactory.csprojAssemblyReference.cache

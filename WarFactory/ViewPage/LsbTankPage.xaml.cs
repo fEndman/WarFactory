@@ -31,6 +31,8 @@ namespace WarFactory.ViewPage
         byte[] compressArray = { 1, 2, 4 };
         byte compression = 4;
 
+        static private bool compatibleMode;
+
         private FileResult photoFile1 = null;
         private FileResult photoFile2 = null;
         private List<FileResult> photoFile3 = new List<FileResult>();
@@ -53,33 +55,58 @@ namespace WarFactory.ViewPage
 
         private async void Image2_Clicked(object sender, EventArgs e)
         {
-            //photoFile2 = await MediaPicker.PickPhotoAsync();
-            photoFile2 = await FilePicker.PickAsync();  //可选取其他文件作为里图
-            if (photoFile2 == null)
-                return;
+            if (compatibleMode)
+            {
+                photoFile2 = await MediaPicker.PickPhotoAsync();
+                if (photoFile2 == null)
+                    return;
+                else
+                    Image2.Source = photoFile2.FullPath;
+            }
             else
             {
-                string extension = photoFile2.FileName.Substring(photoFile2.FileName.LastIndexOf(".") + 1).ToLower();
-
-                if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "bmp" || extension == "gif")
-                    Image2.Source = photoFile2.FullPath;
+                photoFile2 = await FilePicker.PickAsync();  //可选取其他文件作为里图
+                if (photoFile2 == null)
+                    return;
                 else
-                    Image2.Source = ImageSource.FromResource("WarFactory.Resources.File.png");
+                {
+                    string extension = photoFile2.FileName.Substring(photoFile2.FileName.LastIndexOf(".") + 1).ToLower();
+
+                    if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "bmp" || extension == "gif")
+                        Image2.Source = photoFile2.FullPath;
+                    else
+                        Image2.Source = ImageSource.FromResource("WarFactory.Resources.File.png");
+                }
             }
         }
 
         private async void Image3_Clicked(object sender, EventArgs e)
         {
-            photoFile3.Clear();
-            IEnumerable<FileResult> files = await FilePicker.PickMultipleAsync(PickOptions.Images);
-            if (files == null) return;
-
-            foreach (FileResult file in files)
-                photoFile3.Add(file);
-            if (photoFile3.Count == 1)
-                Image3.Source = photoFile3[0].FullPath;
+            if (compatibleMode)
+            {
+                photoFile3.Clear();
+                FileResult file = await MediaPicker.PickPhotoAsync();
+                if (file == null)
+                    return;
+                else
+                {
+                    photoFile3.Add(file);
+                    Image3.Source = photoFile3[0].FullPath;
+                }
+            }
             else
-                Image3.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
+            {
+                photoFile3.Clear();
+                IEnumerable<FileResult> files = await FilePicker.PickMultipleAsync(PickOptions.Images);
+                if (files == null) return;
+
+                foreach (FileResult file in files)
+                    photoFile3.Add(file);
+                if (photoFile3.Count == 1)
+                    Image3.Source = photoFile3[0].FullPath;
+                else
+                    Image3.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
+            }
         }
 
         private async void Image4_Clicked(object sender, EventArgs e)
@@ -239,6 +266,11 @@ namespace WarFactory.ViewPage
         {
             compression = compressArray[(int)Stepper1.Value];
             Label1.Text = compression.ToString();
+        }
+
+        private void Switch1_Toggled(object sender, ToggledEventArgs e)
+        {
+            compatibleMode = Switch1.IsToggled;
         }
     }
 }
