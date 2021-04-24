@@ -113,7 +113,7 @@ namespace WarFactory.ViewPage
         {
             if (insideFile.Count == 1)
             {
-                string extension = (insideFile[0].Name == null) ? "" : insideFile[0].Name.Substring(insideFile[0].Name.LastIndexOf(".") + 1).ToLower();
+                string extension = (insideFile[0].Name == null) ? "png" : insideFile[0].Name.Substring(insideFile[0].Name.LastIndexOf(".") + 1).ToLower();
                 if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "bmp")
                     await Navigation.PushAsync(new ImagePage(insideFile[0].File));
                 else
