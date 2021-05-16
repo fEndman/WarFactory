@@ -26,7 +26,7 @@
 
 	/* 2: Mono.Android.dll */
 	/* uncompressed_file_size */
-	.word	2158080
+	.word	2159616
 	/* loaded */
 	.byte	0
 	/* data */
@@ -125,7 +125,7 @@
 
 	/* 13: WarFactory.Android.dll */
 	/* uncompressed_file_size */
-	.word	305664
+	.word	306176
 	/* loaded */
 	.byte	0
 	/* data */

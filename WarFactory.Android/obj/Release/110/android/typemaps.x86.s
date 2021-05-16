@@ -143,8 +143,8 @@ map_modules:
 	/* java_map */
 	.long	0
 
-	/* module_uuid: 0696ee44-1e36-4c69-a189-aecf16f7ad2e */
-	.byte	0x44, 0xee, 0x96, 0x06, 0x36, 0x1e, 0x69, 0x4c, 0xa1, 0x89, 0xae, 0xcf, 0x16, 0xf7, 0xad, 0x2e
+	/* module_uuid: 956df73f-080a-4c95-9326-865a8def5e6f */
+	.byte	0x3f, 0xf7, 0x6d, 0x95, 0x0a, 0x08, 0x95, 0x4c, 0x93, 0x26, 0x86, 0x5a, 0x8d, 0xef, 0x5e, 0x6f
 	/* entry_count */
 	.long	509
 	/* duplicate_count */
@@ -447,8 +447,8 @@ map_modules:
 	/* java_map */
 	.long	0
 
-	/* module_uuid: 8de25bd9-a08e-473a-a6e1-ebee7fdb6c64 */
-	.byte	0xd9, 0x5b, 0xe2, 0x8d, 0x8e, 0xa0, 0x3a, 0x47, 0xa6, 0xe1, 0xeb, 0xee, 0x7f, 0xdb, 0x6c, 0x64
+	/* module_uuid: 22ab85d9-c40c-4739-b6fe-c7ac6cfd022e */
+	.byte	0xd9, 0x85, 0xab, 0x22, 0x0c, 0xc4, 0x39, 0x47, 0xb6, 0xfe, 0xc7, 0xac, 0x6c, 0xfd, 0x02, 0x2e
 	/* entry_count */
 	.long	1
 	/* duplicate_count */
@@ -457,27 +457,8 @@ map_modules:
 	.long	module22_managed_to_java
 	/* duplicate_map */
 	.long	0
-	/* assembly_name: WarFactory.Android */
-	.long	.L.map_aname.22
-	/* image */
-	.long	0
-	/* java_name_width */
-	.long	0
-	/* java_map */
-	.long	0
-
-	/* module_uuid: 22ab85d9-c40c-4739-b6fe-c7ac6cfd022e */
-	.byte	0xd9, 0x85, 0xab, 0x22, 0x0c, 0xc4, 0x39, 0x47, 0xb6, 0xfe, 0xc7, 0xac, 0x6c, 0xfd, 0x02, 0x2e
-	/* entry_count */
-	.long	1
-	/* duplicate_count */
-	.long	0
-	/* map */
-	.long	module23_managed_to_java
-	/* duplicate_map */
-	.long	0
 	/* assembly_name: Xamarin.Google.Guava.ListenableFuture */
-	.long	.L.map_aname.23
+	.long	.L.map_aname.22
 	/* image */
 	.long	0
 	/* java_name_width */
@@ -492,10 +473,29 @@ map_modules:
 	/* duplicate_count */
 	.long	1
 	/* map */
+	.long	module23_managed_to_java
+	/* duplicate_map */
+	.long	module23_managed_to_java_duplicates
+	/* assembly_name: Xamarin.AndroidX.Lifecycle.Common */
+	.long	.L.map_aname.23
+	/* image */
+	.long	0
+	/* java_name_width */
+	.long	0
+	/* java_map */
+	.long	0
+
+	/* module_uuid: a89da3dc-d92c-4455-ae1f-9fc4c93fb280 */
+	.byte	0xdc, 0xa3, 0x9d, 0xa8, 0x2c, 0xd9, 0x55, 0x44, 0xae, 0x1f, 0x9f, 0xc4, 0xc9, 0x3f, 0xb2, 0x80
+	/* entry_count */
+	.long	1
+	/* duplicate_count */
+	.long	0
+	/* map */
 	.long	module24_managed_to_java
 	/* duplicate_map */
-	.long	module24_managed_to_java_duplicates
-	/* assembly_name: Xamarin.AndroidX.Lifecycle.Common */
+	.long	0
+	/* assembly_name: WarFactory.Android */
 	.long	.L.map_aname.24
 	/* image */
 	.long	0
@@ -5384,7 +5384,7 @@ map_java:
 
 	/* #485 */
 	/* module_index */
-	.long	24
+	.long	23
 	/* type_token_id */
 	.long	33554437
 	/* java_name */
@@ -5394,7 +5394,7 @@ map_java:
 
 	/* #486 */
 	/* module_index */
-	.long	24
+	.long	23
 	/* type_token_id */
 	.long	33554438
 	/* java_name */
@@ -5404,7 +5404,7 @@ map_java:
 
 	/* #487 */
 	/* module_index */
-	.long	24
+	.long	23
 	/* type_token_id */
 	.long	33554440
 	/* java_name */
@@ -5414,7 +5414,7 @@ map_java:
 
 	/* #488 */
 	/* module_index */
-	.long	24
+	.long	23
 	/* type_token_id */
 	.long	33554442
 	/* java_name */
@@ -6304,7 +6304,7 @@ map_java:
 
 	/* #577 */
 	/* module_index */
-	.long	23
+	.long	22
 	/* type_token_id */
 	.long	33554436
 	/* java_name */
@@ -8434,7 +8434,7 @@ map_java:
 
 	/* #790 */
 	/* module_index */
-	.long	22
+	.long	24
 	/* type_token_id */
 	.long	33554434
 	/* java_name */

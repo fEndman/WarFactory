@@ -133,20 +133,20 @@
 	.section	.rodata.map_aname.22,"aMS",%progbits,1
 	.type	.L.map_aname.22, %object
 .L.map_aname.22:
-	.asciz	"WarFactory.Android"
-	.size	.L.map_aname.22, 19
+	.asciz	"Xamarin.Google.Guava.ListenableFuture"
+	.size	.L.map_aname.22, 38
 
 	.section	.rodata.map_aname.23,"aMS",%progbits,1
 	.type	.L.map_aname.23, %object
 .L.map_aname.23:
-	.asciz	"Xamarin.Google.Guava.ListenableFuture"
-	.size	.L.map_aname.23, 38
+	.asciz	"Xamarin.AndroidX.Lifecycle.Common"
+	.size	.L.map_aname.23, 34
 
 	.section	.rodata.map_aname.24,"aMS",%progbits,1
 	.type	.L.map_aname.24, %object
 .L.map_aname.24:
-	.asciz	"Xamarin.AndroidX.Lifecycle.Common"
-	.size	.L.map_aname.24, 34
+	.asciz	"WarFactory.Android"
+	.size	.L.map_aname.24, 19
 
 	.section	.rodata.map_aname.25,"aMS",%progbits,1
 	.type	.L.map_aname.25, %object

@@ -6,8 +6,8 @@ using Xamarin.Essentials;
 using WarFactory.MyInterface;
 using Environment = Android.OS.Environment;
 using Uri = Android.Net.Uri;
+using File = Java.IO.File;
 using Android.Content;
-using Android.App;
 
 [assembly: Dependency(typeof(WarFactory.Droid.PlatformService))]
 namespace WarFactory.Droid
@@ -36,6 +36,11 @@ namespace WarFactory.Droid
             photoTankFile.Write(photoTank, 0, photoTank.Length);
             photoTankFile.Flush();
             photoTankFile.Close();
+
+            Intent intent = new Intent(Intent.ActionMediaScannerScanFile);
+            Uri uri = Uri.FromFile(new File(path));
+            intent.SetData(uri);
+            Platform.AppContext.SendBroadcast(intent);
 
             return Path.Combine(fileName);
         }
