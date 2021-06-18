@@ -8,7 +8,7 @@ namespace WarFactory.FactoryFunc
 {
     class LsbTank
     {
-        static public MemoryStream Encode(FileStream surPicFile, FileStream insPicFile, int compress)
+        static public MemoryStream Encode(FileStream surPicFile, FileStream insPicFile, string info, int compress)
         {
             if (compress == 0 || compress == 3 || compress >= 5) return null;
 
@@ -16,12 +16,10 @@ namespace WarFactory.FactoryFunc
             char[] signature = "/By:f_Endman".ToCharArray();
 
             Assembly asm = Assembly.GetExecutingAssembly();
-            Stream infoPicFile_TK = asm.GetManifestResourceStream("WarFactory.Resources.TK.png");
 
             long insPicLength = insPicFile.Length;
 
             SKBitmap surPic = SKBitmap.Decode(surPicFile);
-            SKBitmap infoPic = SKBitmap.Decode(infoPicFile_TK);
 
             //得到隐写里图所需的表图的尺寸，并缩放表图
             long byteForLSB = insPicLength * 8 / compress;  //隐写所有里数据所需的表图字节数
@@ -33,17 +31,30 @@ namespace WarFactory.FactoryFunc
             SKBitmap tankPic = new SKBitmap((int)(surPic.Width * squareRootZoom), (int)(surPic.Height * squareRootZoom), SKColorType.Bgra8888, SKAlphaType.Premul);
             surPic.ScalePixels(tankPic, SKFilterQuality.High);
 
-            //为表图添加“TK”标识
-            for (int i = 0; i < infoPic.Height; i++)
+            //为表图添加水印
+            SKPaint paint = new SKPaint();
+            paint.Color = SKColors.Black;
+            paint.TextSize = 24;
+            paint.IsAntialias = true;   //抗锯齿
+            paint.Typeface = SKFontManager.Default.MatchCharacter('字'); //寻找支持中文的字体
+            SKRect textSize = new SKRect();
+            paint.MeasureText(info, ref textSize);  //得到文字的尺寸
+            int textWidth = (int)(textSize.Size.Width + 1);
+            if (textWidth > tankPic.Width) textWidth = tankPic.Width;
+            SKBitmap infoPic = new SKBitmap(textWidth, 30); //创建水印
+            SKCanvas canvas = new SKCanvas(infoPic);
+            canvas.DrawColor(SKColors.White);
+            canvas.DrawText(info, 0, (30 - textSize.Size.Height) / 2 - textSize.Top, paint);
+            byte alpha = 0xC0;  //水印不透明度
+            for (int i = 0; i < infoPic.Height; i++)    //混色
             {
                 for (int j = 0; j < infoPic.Width; j++)
                 {
                     SKColor infoColor = infoPic.GetPixel(j, i);
                     SKColor surColor = tankPic.GetPixel(j, i);
-                    byte red = (byte)((infoColor.Red * infoColor.Alpha + surColor.Red * (0xFF - infoColor.Alpha)) / 0xFF);
-                    byte green = (byte)((infoColor.Green * infoColor.Alpha + surColor.Green * (0xFF - infoColor.Alpha)) / 0xFF);
-                    byte blue = (byte)((infoColor.Blue * infoColor.Alpha + surColor.Blue * (0xFF - infoColor.Alpha)) / 0xFF);
-
+                    byte red = (byte)((infoColor.Red * alpha + surColor.Red * (0xFF - alpha)) / 0xFF);
+                    byte green = (byte)((infoColor.Green * alpha + surColor.Green * (0xFF - alpha)) / 0xFF);
+                    byte blue = (byte)((infoColor.Blue * alpha + surColor.Blue * (0xFF - alpha)) / 0xFF);
                     tankPic.SetPixel(j, i, new SKColor(red, green, blue));
                 }
             }

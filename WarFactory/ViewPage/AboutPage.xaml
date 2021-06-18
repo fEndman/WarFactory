@@ -5,26 +5,27 @@
 	
 	<NavigationPage.TitleView>
 		<Label
-			Text="幻影坦克工厂"
+			Text="关于项目+软件更新"
 			TextColor="Black"
 			FontSize="Large"
 			HorizontalOptions="Center"/>
 	</NavigationPage.TitleView>
-
-	<StackLayout>
-		<Label
+	
+	<RelativeLayout>
+		<StackLayout>
+			<Label
 			Text="免责声明"
 			TextColor="Red"
 			FontSize="32"
 			FontAttributes="Bold"
 			HorizontalTextAlignment="Center"/>
-		<Label
+			<Label
 			Text="本应用仅供技术研究使用，使用者做出的行为及后果作者概不负责！"
 			TextColor="Red"
 			FontSize="24"
 			FontAttributes="Bold"
 			HorizontalTextAlignment="Center"/>
-		<Button
+			<Button
 			x:Name="Button1"
 			Text="GitHub地址"
 			TextColor="Black"
@@ -34,7 +35,7 @@
 			CornerRadius="32"
 			HeightRequest="80"
 			Clicked="Button1_Clicked"/>
-		<Button
+			<Button
 			x:Name="Button2"
 			Text="贴吧地址"
 			TextColor="Black"
@@ -44,7 +45,7 @@
 			CornerRadius="32"
 			HeightRequest="80"
 			Clicked="Button2_Clicked"/>
-		<Button
+			<Button
 			x:Name="Button3"
 			Text="网盘地址(提取码:pbd6)"
 			TextColor="Black"
@@ -54,11 +55,28 @@
 			CornerRadius="32"
 			HeightRequest="80"
 			Clicked="Button3_Clicked"/>
-		<Label
+			<Label
 			Text="作者：f_Endman"
 			TextColor="DimGray"
 			FontSize="24"
 			HorizontalTextAlignment="Center"/>
-	</StackLayout>
+		</StackLayout>
+		
+		<Button
+			x:Name="Button4"
+			Text="打赏"
+			TextColor="Black"
+			TextTransform="None"
+			FontSize="20"
+			BackgroundColor="Gold"
+			CornerRadius="32"
+			HeightRequest="50"
+			Clicked="Button4_Clicked"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.9}"
+			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.25}"
+			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.08}"/>
+	</RelativeLayout>
+
 
 </ContentPage>

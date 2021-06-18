@@ -17,8 +17,8 @@
     <None Remove="Resources\LsbTank.png" />
     <None Remove="Resources\MirageTank.png" />
     <None Remove="Resources\NetDisk.png" />
+    <None Remove="Resources\Pay.png" />
     <None Remove="Resources\Tieba.png" />
-    <None Remove="Resources\TK.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,8 +31,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\MirageTank.png" />
     <EmbeddedResource Include="Resources\NetDisk.png" />
+    <EmbeddedResource Include="Resources\Pay.png" />
     <EmbeddedResource Include="Resources\Tieba.png" />
-    <EmbeddedResource Include="Resources\TK.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,5 +69,14 @@
     <EmbeddedResource Update="ViewPage\MirageTankSettingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="ViewPage\PayPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ViewPage\PayPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 </Project>

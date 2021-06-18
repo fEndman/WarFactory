@@ -155,9 +155,15 @@ namespace WarFactory.ViewPage
             Button2.IsEnabled = false;
 
             MemoryStream photoTank = new MemoryStream();
+            string info = Entry1.Text;
+            if (string.IsNullOrEmpty(info) || string.IsNullOrWhiteSpace(info))
+            {
+                info = "TK";
+                Entry1.Text = "TK";
+            }
             await Task.Run(() =>
             {
-                photoTank = LsbTank.Encode(photo1Stream, photo2Stream, compression);
+                photoTank = LsbTank.Encode(photo1Stream, photo2Stream, info, compression);
             });
 
             insideFile.Add(new sInsideFile(null, photoTank));

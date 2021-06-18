@@ -34,5 +34,10 @@ namespace WarFactory.ViewPage
         {
             await Browser.OpenAsync("https://pan.baidu.com/s/1B9Aw7J_cKA6W5GwNodRzPA");
         }
+
+        private async void Button4_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PayPage());
+        }
     }
 }
