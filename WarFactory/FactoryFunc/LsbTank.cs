@@ -3,6 +3,8 @@ using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
 using SkiaSharp;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace WarFactory.FactoryFunc
 {
@@ -14,8 +16,6 @@ namespace WarFactory.FactoryFunc
 
             byte[] lsbMask = { 0x1, 0x3, 0x7, 0xF };
             char[] signature = "/By:f_Endman".ToCharArray();
-
-            Assembly asm = Assembly.GetExecutingAssembly();
 
             long insPicLength = insPicFile.Length;
 
@@ -36,16 +36,26 @@ namespace WarFactory.FactoryFunc
             paint.Color = SKColors.Black;
             paint.TextSize = 24;
             paint.IsAntialias = true;   //抗锯齿
-            paint.Typeface = SKFontManager.Default.MatchCharacter('字'); //寻找支持中文的字体
+
+            Assembly asm = Assembly.GetExecutingAssembly();
+            Stream infoTypeface = asm.GetManifestResourceStream("WarFactory.Resources.simhei.ttf");
+
+            paint.Typeface = SKTypeface.FromStream(infoTypeface);
+
+            //if (Regex.IsMatch(info.ToCharArray()[0].ToString(), @"[\u4e00-\u9fbb]"))
+            //    paint.Typeface = SKFontManager.Default.MatchCharacter('字'); //寻找支持中文的字体
+            //else
+            //    paint.Typeface = SKTypeface.FromFamilyName("微软雅黑", SKFontStyle.BoldItalic);
+
             SKRect textSize = new SKRect();
             paint.MeasureText(info, ref textSize);  //得到文字的尺寸
-            int textWidth = (int)(textSize.Size.Width + 1);
+            int textWidth = (int)(textSize.Size.Width + 2);
             if (textWidth > tankPic.Width) textWidth = tankPic.Width;
             SKBitmap infoPic = new SKBitmap(textWidth, 30); //创建水印
             SKCanvas canvas = new SKCanvas(infoPic);
             canvas.DrawColor(SKColors.White);
             canvas.DrawText(info, 0, (30 - textSize.Size.Height) / 2 - textSize.Top, paint);
-            byte alpha = 0xC0;  //水印不透明度
+            byte alpha = 0xCF;  //水印不透明度
             for (int i = 0; i < infoPic.Height; i++)    //混色
             {
                 for (int j = 0; j < infoPic.Width; j++)

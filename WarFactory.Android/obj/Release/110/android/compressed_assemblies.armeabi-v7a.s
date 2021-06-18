@@ -154,7 +154,7 @@
 
 	/* 14: WarFactory.dll */
 	/* uncompressed_file_size */
-	.long	1149952
+	.long	10903552
 	/* loaded */
 	.byte	0
 	/* data */

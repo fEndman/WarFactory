@@ -18,6 +18,7 @@
     <None Remove="Resources\MirageTank.png" />
     <None Remove="Resources\NetDisk.png" />
     <None Remove="Resources\Pay.png" />
+    <None Remove="Resources\simhei.ttf" />
     <None Remove="Resources\Tieba.png" />
   </ItemGroup>
 
@@ -32,6 +33,7 @@
     <EmbeddedResource Include="Resources\MirageTank.png" />
     <EmbeddedResource Include="Resources\NetDisk.png" />
     <EmbeddedResource Include="Resources\Pay.png" />
+    <EmbeddedResource Include="Resources\simhei.ttf" />
     <EmbeddedResource Include="Resources\Tieba.png" />
   </ItemGroup>
 
