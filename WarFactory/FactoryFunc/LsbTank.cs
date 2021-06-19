@@ -36,17 +36,9 @@ namespace WarFactory.FactoryFunc
             paint.Color = SKColors.Black;
             paint.TextSize = 24;
             paint.IsAntialias = true;   //抗锯齿
-
             Assembly asm = Assembly.GetExecutingAssembly();
-            Stream infoTypeface = asm.GetManifestResourceStream("WarFactory.Resources.simhei.ttf");
-
+            Stream infoTypeface = asm.GetManifestResourceStream("WarFactory.Resources.simhei.ttf"); //打开内嵌的字体
             paint.Typeface = SKTypeface.FromStream(infoTypeface);
-
-            //if (Regex.IsMatch(info.ToCharArray()[0].ToString(), @"[\u4e00-\u9fbb]"))
-            //    paint.Typeface = SKFontManager.Default.MatchCharacter('字'); //寻找支持中文的字体
-            //else
-            //    paint.Typeface = SKTypeface.FromFamilyName("微软雅黑", SKFontStyle.BoldItalic);
-
             SKRect textSize = new SKRect();
             paint.MeasureText(info, ref textSize);  //得到文字的尺寸
             int textWidth = (int)(textSize.Size.Width + 2);

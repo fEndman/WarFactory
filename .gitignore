@@ -8,6 +8,7 @@
 /WarFactory.iOS/bin
 /WarFactory.iOS/obj
 
+/WarFactory/Resources/Pay.png
 /WarFactory/ViewPage/AboutPage.xaml
 /WarFactory/ViewPage/AboutPage.xaml.cs
 /WarFactory/ViewPage/PayPage.xaml
