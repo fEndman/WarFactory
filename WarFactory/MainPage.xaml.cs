@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using WarFactory.ViewPage;
+using WarFactory.MyInterface;
 
 namespace WarFactory
 {
@@ -16,6 +12,7 @@ namespace WarFactory
             InitializeComponent();
             MirageTankButton.Source = ImageSource.FromResource("WarFactory.Resources.MirageTank.png");
             LsbTankButton.Source = ImageSource.FromResource("WarFactory.Resources.LsbTank.png");
+            LabelVersion.Text = DependencyService.Get<IPlatformService>().GetVersion();
         }
 
         private async void MirageTankButton_Clicked(object sender, EventArgs e)

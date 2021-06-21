@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Collections.Generic;
 using SkiaSharp;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace WarFactory.FactoryFunc
 {
@@ -203,6 +202,7 @@ namespace WarFactory.FactoryFunc
 
             //循环检测至少256个字节来获取LSB文件信息
             string sLsbCount = "", lsbFileType = "";
+            List<byte> lsbFileNameList = new List<byte>();
             int offset = 0;
             while (offset < 0xFF)
             {
@@ -213,10 +213,11 @@ namespace WarFactory.FactoryFunc
             offset++;
             while (offset < 0xFF)
             {
-                if (lsbByte[offset] != 0x01) lsbFileName += (char)lsbByte[offset];
+                if (lsbByte[offset] != 0x01) lsbFileNameList.Add(lsbByte[offset]);
                 else break;
                 offset++;
             }
+            lsbFileName = Encoding.UTF8.GetString(lsbFileNameList.ToArray());   //UTF8转ASCII
             offset++;
             while (offset < 0xFF)
             {
@@ -227,10 +228,9 @@ namespace WarFactory.FactoryFunc
             if (offset == 0xFF) return null;
             offset++;
 
-            int LsbCount = 0;
+            int LsbCount;
             if(int.TryParse(sLsbCount, out LsbCount) == false)return null;
-            int lsbCount = int.Parse(sLsbCount);
-            byte[] lsbByteArray = lsbByte.GetRange(offset, lsbCount).ToArray();
+            byte[] lsbByteArray = lsbByte.GetRange(offset, LsbCount).ToArray();
 
             return new MemoryStream(lsbByteArray);
         }

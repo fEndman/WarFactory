@@ -12,5 +12,6 @@ namespace WarFactory.MyInterface
         Task RequestPermissions();
         string GetAbsoluteSavePath();
         string GetSavePath();
+        string GetVersion();
     }
 }

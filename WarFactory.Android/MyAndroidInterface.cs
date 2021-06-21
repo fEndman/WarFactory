@@ -52,13 +52,20 @@ namespace WarFactory.Droid
             await Permissions.RequestAsync<Permissions.StorageRead>();
             if (Permissions.ShouldShowRationale<Permissions.StorageRead>()) return;
         }
+
         public string GetAbsoluteSavePath()
         {
             return Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, Environment.DirectoryPictures, folder);
         }
+
         public string GetSavePath()
         {
             return Path.Combine(Environment.DirectoryPictures, folder);
+        }
+
+        public string GetVersion()
+        {
+            return Platform.CurrentActivity.PackageManager.GetPackageInfo(Platform.CurrentActivity.PackageName, 0).VersionName;
         }
     }
 }
