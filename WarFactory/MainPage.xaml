@@ -45,7 +45,7 @@
 			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
 			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"/>
 		<Button
-			Text="关于项目+更新+打赏"
+			Text="关于项目+更新+投币"
 			TextColor="Black"
 			FontSize="14"
 			BackgroundColor="LightCyan"

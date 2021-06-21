@@ -30,7 +30,7 @@
 			Text="GitHub地址"
 			TextColor="Black"
 			TextTransform="None"
-			FontSize="32"
+			FontSize="24"
 			BackgroundColor="Gray"
 			CornerRadius="32"
 			HeightRequest="80"
@@ -40,7 +40,7 @@
 			Text="贴吧地址"
 			TextColor="Black"
 			TextTransform="None"
-			FontSize="32"
+			FontSize="24"
 			BackgroundColor="DeepSkyBlue"
 			CornerRadius="32"
 			HeightRequest="80"
@@ -50,7 +50,7 @@
 			Text="网盘地址(提取码:pbd6)"
 			TextColor="Black"
 			TextTransform="None"
-			FontSize="28"
+			FontSize="18"
 			BackgroundColor="LightBlue"
 			CornerRadius="32"
 			HeightRequest="80"
@@ -58,16 +58,16 @@
 			<Label
 			Text="作者：f_Endman"
 			TextColor="DimGray"
-			FontSize="24"
+			FontSize="16"
 			HorizontalTextAlignment="Center"/>
 		</StackLayout>
 		
 		<Button
 			x:Name="Button4"
-			Text="打赏"
+			Text="投币"
 			TextColor="Black"
 			TextTransform="None"
-			FontSize="20"
+			FontSize="18"
 			BackgroundColor="Gold"
 			CornerRadius="32"
 			HeightRequest="50"

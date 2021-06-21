@@ -82,7 +82,7 @@ namespace WarFactory.FactoryFunc
 
             insPicByteList.Add(0x01);
 
-            char[] insFormat = null;
+            char[] insFormat;
             if (insPicFile.Name.Substring(insPicFile.Name.LastIndexOf(".") + 1) == "png")
                 insFormat = "image/png".ToString().ToCharArray();
             else if (insPicFile.Name.Substring(insPicFile.Name.LastIndexOf(".") + 1) == "gif")
@@ -147,6 +147,11 @@ namespace WarFactory.FactoryFunc
             tankPic.Pixels = tankColorArray;
 
             byte[] tankPicArray = tankPic.Encode(SKEncodedImageFormat.Png, 100).ToArray();
+
+            surPicFile.Close();
+            surPicFile.Dispose();
+            insPicFile.Close();
+            insPicFile.Dispose();
 
             return new MemoryStream(tankPicArray);
         }
@@ -231,6 +236,9 @@ namespace WarFactory.FactoryFunc
             int LsbCount;
             if(int.TryParse(sLsbCount, out LsbCount) == false)return null;
             byte[] lsbByteArray = lsbByte.GetRange(offset, LsbCount).ToArray();
+
+            tankPicFile.Close();
+            tankPicFile.Dispose();
 
             return new MemoryStream(lsbByteArray);
         }

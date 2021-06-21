@@ -30,8 +30,8 @@ namespace WarFactory.ViewPage
 
         static private bool compatibleMode;
 
-        private FileResult photoFile1 = null;
-        private FileResult photoFile2 = null;
+        private List<FileResult> photoFile1 = new List<FileResult>();
+        private List<FileResult> photoFile2 = new List<FileResult>();
         private List<FileResult> photoFile3 = new List<FileResult>();
         List<sInsideFile> insideFile = new List<sInsideFile>();
 
@@ -43,37 +43,67 @@ namespace WarFactory.ViewPage
 
         private async void Image1_Clicked(object sender, EventArgs e)
         {
-            photoFile1 = await MediaPicker.PickPhotoAsync();
-            if (photoFile1 == null)
-                return;
+            if (compatibleMode)
+            {
+                photoFile1.Clear();
+                FileResult file = await MediaPicker.PickPhotoAsync();
+                if (file == null)
+                    return;
+                else
+                {
+                    photoFile1.Add(file);
+                    Image1.Source = photoFile1[0].FullPath;
+                }
+            }
             else
-                Image1.Source = photoFile1.FullPath;
+            {
+                photoFile1.Clear();
+                IEnumerable<FileResult> files = await FilePicker.PickMultipleAsync(PickOptions.Images);
+                if (files == null) return;
+
+                foreach (FileResult file in files)
+                    photoFile1.Add(file);
+                photoFile1.Reverse();   //选取器多选是先选的排在最后，我们要的是先选在前，所以颠倒排序一下
+                if (photoFile1.Count == 1)
+                    Image1.Source = photoFile1[0].FullPath;
+                else
+                    Image1.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
+            }
         }
 
         private async void Image2_Clicked(object sender, EventArgs e)
         {
             if (compatibleMode)
             {
-                photoFile2 = await MediaPicker.PickPhotoAsync();
-                if (photoFile2 == null)
-                    return;
-                else
-                    Image2.Source = photoFile2.FullPath;
-            }
-            else
-            {
-                photoFile2 = await FilePicker.PickAsync();  //可选取其他文件作为里图
-                if (photoFile2 == null)
+                photoFile2.Clear();
+                FileResult file = await MediaPicker.PickPhotoAsync();
+                if (file == null)
                     return;
                 else
                 {
-                    string extension = photoFile2.FileName.Substring(photoFile2.FileName.LastIndexOf(".") + 1).ToLower();
+                    photoFile2.Add(file);
+                    Image2.Source = photoFile2[0].FullPath;
+                }
+            }
+            else
+            {
+                photoFile2.Clear();
+                IEnumerable<FileResult> files = await FilePicker.PickMultipleAsync();   //可选取其他文件作为里图
+                if (files == null) return;
 
+                foreach (FileResult file in files)
+                    photoFile2.Add(file);
+                photoFile2.Reverse();   //选取器多选是先选的排在最后，我们要的是先选在前，所以颠倒排序一下
+                if (photoFile2.Count == 1)
+                {
+                    string extension = photoFile2[0].FileName.Substring(photoFile2[0].FileName.LastIndexOf(".") + 1).ToLower();
                     if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "bmp" || extension == "gif")
-                        Image2.Source = photoFile2.FullPath;
+                        Image2.Source = photoFile2[0].FullPath;
                     else
                         Image2.Source = ImageSource.FromResource("WarFactory.Resources.File.png");
                 }
+                else
+                    Image2.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
             }
         }
 
@@ -99,6 +129,7 @@ namespace WarFactory.ViewPage
 
                 foreach (FileResult file in files)
                     photoFile3.Add(file);
+                photoFile3.Reverse();   //选取器多选是先选的排在最后，我们要的是先选在前，所以颠倒排序一下
                 if (photoFile3.Count == 1)
                     Image3.Source = photoFile3[0].FullPath;
                 else
@@ -132,14 +163,23 @@ namespace WarFactory.ViewPage
         {
             if (photoFile1 == null ||
                 photoFile2 == null ||
-                string.IsNullOrEmpty(photoFile1.FullPath) ||
-                string.IsNullOrEmpty(photoFile2.FullPath))
+                photoFile1.Count == 0 ||
+                photoFile2.Count == 0)
             {
                 await DisplayAlert("警告", "缺少图片！", "确认");
                 return;
             }
-            FileStream photo1Stream = new FileStream(photoFile1.FullPath, FileMode.Open);
-            FileStream photo2Stream = new FileStream(photoFile2.FullPath, FileMode.Open);
+            foreach (FileResult pf1 in photoFile1)
+            {
+                foreach (FileResult pf2 in photoFile2)
+                {
+                    if (pf1.FullPath == pf2.FullPath)
+                    {
+                        await DisplayAlert("警告", "里图不能与表图重复！", "确认");
+                        return;
+                    }
+                }
+            }
 
             foreach (sInsideFile insFile in insideFile)
                 insFile.File.Dispose();
@@ -151,27 +191,42 @@ namespace WarFactory.ViewPage
             Button1.IsEnabled = false;
             Button2.IsEnabled = false;
 
-            MemoryStream photoTank = new MemoryStream();
+            string fileName = "Tank_" + DateTime.Now.ToLocalTime().ToString("yyyyMMdd_HHmmss");
+            int photoIndex = 0;
             string info = Entry1.Text;
-            if (string.IsNullOrEmpty(info) || string.IsNullOrWhiteSpace(info))
+            if ((string.IsNullOrEmpty(info) || string.IsNullOrWhiteSpace(info)) && photoFile2.Count == 1)
             {
                 info = "TK";
                 Entry1.Text = "TK";
             }
             await Task.Run(() =>
             {
-                photoTank = LsbTank.Encode(photo1Stream, photo2Stream, info, compression);
+                foreach (FileResult fr in photoFile2)
+                {
+                    photoIndex++;
+                    MemoryStream tempStream = LsbTank.Encode(new FileStream(photoFile1[photoIndex % photoFile1.Count].FullPath, FileMode.Open),
+                                                             new FileStream(fr.FullPath, FileMode.Open),
+                                                             info + (photoFile2.Count == 1 ? "" : photoIndex.ToString()),
+                                                             compression);
+                    if (tempStream != null)
+                    {
+                        insideFile.Add(new sInsideFile(fileName + "_" + photoIndex.ToString() + ".png", tempStream));
+                        tempStream.Dispose();
+                    }
+                }
             });
 
-            insideFile.Add(new sInsideFile(null, photoTank));
-            Image4.Source = ImageSource.FromStream(() => new MemoryStream(photoTank.ToArray()));
+            if (insideFile.Count == 1)
+                Image4.Source = ImageSource.FromStream(() => new MemoryStream(insideFile[0].File.ToArray()));
+            else
+            {
+                Image4.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
+                LabelFileName.Text = "成功生成" + insideFile.Count.ToString() + "个文件，点击进入查看列表";
+            }
 
             Button1.IsEnabled = true;
             Button2.IsEnabled = true;
             ActivityIndicator1.IsRunning = false;
-
-            photo1Stream.Close();
-            photo2Stream.Close();
         }
 
         private async void Button_Clicked_2(object sender, EventArgs e)
