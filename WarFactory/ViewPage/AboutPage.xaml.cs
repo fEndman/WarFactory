@@ -18,7 +18,8 @@ namespace WarFactory.ViewPage
             InitializeComponent();
             Button1.ImageSource = ImageSource.FromResource("WarFactory.Resources.GitHub.png");
             Button2.ImageSource = ImageSource.FromResource("WarFactory.Resources.Tieba.png");
-            Button3.ImageSource = ImageSource.FromResource("WarFactory.Resources.NetDisk.png");
+            Button3.ImageSource = ImageSource.FromResource("WarFactory.Resources.WeiYun.png");
+            Button4.ImageSource = ImageSource.FromResource("WarFactory.Resources.BaiduNetDisk.png");
         }
         private async void Button1_Clicked(object sender, EventArgs e)
         {
@@ -32,10 +33,15 @@ namespace WarFactory.ViewPage
 
         private async void Button3_Clicked(object sender, EventArgs e)
         {
-            await Browser.OpenAsync("https://pan.baidu.com/s/1B9Aw7J_cKA6W5GwNodRzPA");
+            await Browser.OpenAsync("https://share.weiyun.com/yvkPZ89G");
         }
 
         private async void Button4_Clicked(object sender, EventArgs e)
+        {
+            await Browser.OpenAsync("https://pan.baidu.com/s/1B9Aw7J_cKA6W5GwNodRzPA");
+        }
+
+        private async void Button5_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new PayPage());
         }

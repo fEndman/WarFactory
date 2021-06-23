@@ -25,8 +25,7 @@ namespace WarFactory.ViewPage
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LsbTankPage : ContentPage
     {
-        byte[] compressArray = { 1, 2, 4 };
-        byte compression = 4;
+        int compression = 4;
 
         static private bool compatibleMode;
 
@@ -69,6 +68,8 @@ namespace WarFactory.ViewPage
                 else
                     Image1.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
             }
+
+            LabelTips1.Text = "";
         }
 
         private async void Image2_Clicked(object sender, EventArgs e)
@@ -105,6 +106,8 @@ namespace WarFactory.ViewPage
                 else
                     Image2.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
             }
+
+            LabelTips2.Text = "";
         }
 
         private async void Image3_Clicked(object sender, EventArgs e)
@@ -135,6 +138,8 @@ namespace WarFactory.ViewPage
                 else
                     Image3.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
             }
+
+            LabelTips3.Text = "";
         }
 
         private async void Image4_Clicked(object sender, EventArgs e)
@@ -191,6 +196,9 @@ namespace WarFactory.ViewPage
             Button1.IsEnabled = false;
             Button2.IsEnabled = false;
 
+            if(compression >= 6)
+                await DisplayAlert("警告", "支持压缩度大于等于6的无影坦克的网站很少，很有可能只有本APP能够现形，并且十分不稳定，请酌情考虑是否保存！", "确认");
+
             string fileName = "Tank_" + DateTime.Now.ToLocalTime().ToString("yyyyMMdd_HHmmss");
             int photoIndex = 0;
             string info = Entry1.Text;
@@ -216,6 +224,7 @@ namespace WarFactory.ViewPage
                 }
             });
 
+            LabelTips4.Text = "";
             if (insideFile.Count == 1)
                 Image4.Source = ImageSource.FromStream(() => new MemoryStream(insideFile[0].File.ToArray()));
             else
@@ -238,8 +247,17 @@ namespace WarFactory.ViewPage
             }
 
             List<FileStream> photo3Stream = new List<FileStream>();
-            foreach (FileResult file in photoFile3)
-                photo3Stream.Add(new FileStream(file.FullPath, FileMode.Open));
+            try
+            {
+                foreach (FileResult file in photoFile3)
+                    photo3Stream.Add(new FileStream(file.FullPath, FileMode.Open));
+            }
+            catch (UnauthorizedAccessException)
+            {
+                await DisplayAlert("警告", "权限异常！", "确认");
+                photo3Stream.Clear();
+                return;
+            }
 
             foreach (sInsideFile insFile in insideFile)
                 insFile.File.Dispose();
@@ -264,6 +282,7 @@ namespace WarFactory.ViewPage
                 }
             });
 
+            LabelTips4.Text = "";
             if (insideFile.Count == 0)
             {
                 await DisplayAlert("警告", "这些图不是无影坦克！", "确认");
@@ -322,7 +341,7 @@ namespace WarFactory.ViewPage
 
         private void Stepper_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            compression = compressArray[(int)Stepper1.Value];
+            compression = (int)Stepper1.Value;
             Label1.Text = compression.ToString();
         }
 

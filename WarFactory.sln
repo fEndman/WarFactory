@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarFactory.Android", "WarFa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarFactory.iOS", "WarFactory.iOS\WarFactory.iOS.csproj", "{BD93B29D-C293-4564-AA60-856949752594}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarFactory", "WarFactory\WarFactory.csproj", "{7F221777-66B6-48F0-96BF-49DD09FB5BD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarFactory", "WarFactory\WarFactory.csproj", "{7F221777-66B6-48F0-96BF-49DD09FB5BD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

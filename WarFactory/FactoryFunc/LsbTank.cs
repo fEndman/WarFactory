@@ -11,9 +11,9 @@ namespace WarFactory.FactoryFunc
     {
         static public MemoryStream Encode(FileStream surPicFile, FileStream insPicFile, string info, int compress)
         {
-            if (compress == 0 || compress == 3 || compress >= 5) return null;
+            if (compress == 0 || compress >= 8) return null;
 
-            byte[] lsbMask = { 0x1, 0x3, 0x7, 0xF };
+            byte[] lsbMask = { 0x1, 0x3, 0x7, 0xF, 0x1F, 0x3F, 0x7F };
             char[] signature = "/By:f_Endman".ToCharArray();
 
             long insPicLength = insPicFile.Length;
@@ -23,7 +23,7 @@ namespace WarFactory.FactoryFunc
             //得到隐写里图所需的表图的尺寸，并缩放表图
             long byteForLSB = insPicLength * 8 / compress;  //隐写所有里数据所需的表图字节数
             long currentSurPicByte = surPic.Width * surPic.Height * 3;//表图现有的可用于LSB隐写的字节数
-            double zoom = (double)byteForLSB / (double)currentSurPicByte * 1.05d;   //表图需要缩放的倍数（留出5%余量）
+            double zoom = (double)byteForLSB / (double)currentSurPicByte * ((compress >= 6) ? 1.05d : 1.01d);   //表图需要缩放的倍数（留出1%-5%余量）
             /* 问题可转化为两矩形已知前后面积比例zoom，前者宽度高度a1,b1和a1/b1，并且两矩形长宽比相同即a1/b1=a2/b2；求后者矩形的长a2与宽b2 *
              * ∵a1/b1=a2/b2   ∴a2=a1/b1*b2   又∵a1*b1*zoom=a2*b2   ∴联立可解得b2=b1*根号zoom   ∴a2=a1*根号zoom                       */
             double squareRootZoom = Math.Sqrt(zoom);
@@ -31,13 +31,13 @@ namespace WarFactory.FactoryFunc
             surPic.ScalePixels(tankPic, SKFilterQuality.High);
 
             //为表图添加水印
-            SKPaint paint = new SKPaint();
-            paint.Color = SKColors.Black;
-            paint.TextSize = 24;
-            paint.IsAntialias = true;   //抗锯齿
-            Assembly asm = Assembly.GetExecutingAssembly();
-            Stream infoTypeface = asm.GetManifestResourceStream("WarFactory.Resources.simhei.ttf"); //打开内嵌的字体
-            paint.Typeface = SKTypeface.FromStream(infoTypeface);
+            SKPaint paint = new SKPaint
+            {
+                Color = SKColors.Black,
+                TextSize = 24,
+                IsAntialias = true, //抗锯齿
+                Typeface = SKTypeface.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("WarFactory.Resources.simhei.ttf"))  //使用内嵌的字体
+            };
             SKRect textSize = new SKRect();
             paint.MeasureText(info, ref textSize);  //得到文字的尺寸
             int textWidth = (int)(textSize.Size.Width + 2);
@@ -83,12 +83,36 @@ namespace WarFactory.FactoryFunc
             insPicByteList.Add(0x01);
 
             char[] insFormat;
-            if (insPicFile.Name.Substring(insPicFile.Name.LastIndexOf(".") + 1) == "png")
-                insFormat = "image/png".ToString().ToCharArray();
-            else if (insPicFile.Name.Substring(insPicFile.Name.LastIndexOf(".") + 1) == "gif")
-                insFormat = "image/gif".ToString().ToCharArray();
-            else
-                insFormat = "image/jpeg".ToString().ToCharArray();
+            string extName = insPicFile.Name.Substring(insPicFile.Name.LastIndexOf(".") + 1).ToLower();
+
+            switch (extName)
+            {
+                case "png":
+                    insFormat = "image/png".ToCharArray();
+                    break;
+                case "gif":
+                    insFormat = "image/gif".ToCharArray();
+                    break;
+                case "jpg":
+                case "jpeg":
+                    insFormat = "image/jpeg".ToCharArray();
+                    break;
+                case "avi":
+                    insFormat = "video/avi".ToCharArray();
+                    break;
+                case "mp4":
+                    insFormat = "video/mp4".ToCharArray();
+                    break;
+                case "mp3":
+                case "wav":
+                case "ogg":
+                    insFormat = "audio/mpeg".ToCharArray();
+                    break;
+                default:
+                    insFormat = "".ToCharArray();
+                    break;
+            }
+
             for (int i = 0; i < insFormat.Length; i++)
                 insPicByteList.Add((byte)insFormat[i]);
 
@@ -123,23 +147,26 @@ namespace WarFactory.FactoryFunc
             tankByteArray[2] &= 0xF8;
             tankByteArray[2] |= (byte)(compress & 0x7);
 
-            //---LSB隐写---//
-            int bitCount = 8, Count = 0, snCount = 0;
+            //---LSB隐写，具体细节很繁琐，用到了一堆位运算---//
+            int Count = 0, snCount = 0;
+            Int32 FIFO = 0;     //先进先出，用于缓存LSB
+            int FifoCount = 0;  //FIFO中剩余的要写入的LSB的数量
             byte[] insPicByteArray = insPicByteList.ToArray();  //直接用List速度比较慢
             insPicByteList.Clear();
             for (int i = 3; i < tankByteArray.Length; i++)
             {
-                tankByteArray[i] &= (byte)~lsbMask[compress - 1];   //清除低n位
-                tankByteArray[i] |= (byte)(insPicByteArray[Count] >> (8 - compress) & lsbMask[compress - 1]);
-                insPicByteArray[Count] <<= compress;
-                if ((bitCount -= compress) == 0)
+                if (FifoCount < compress)   //FIFO不够写了就读一个字节
                 {
-                    bitCount = 8;
-                    if (Count < insPicByteArray.Length - 1)
-                        Count++;
-                    else
-                        insPicByteArray[Count] = ((byte)signature[snCount++ % signature.Length]);
+                    //无影坦克的LSB是大端的，所以从"左"取数据，即先取高位
+                    //如果里数据已经全部写入，就填充签名字符串
+                    FIFO |= (Int32)(((Count < insPicByteArray.Length) ? insPicByteArray[Count++] : (byte)signature[snCount++ % signature.Length]) << (/* 32 - 8 */ 24 - FifoCount));
+                    FifoCount += 8;
                 }
+                tankByteArray[i] &= (byte)~lsbMask[compress - 1];   //清除低n位
+                //无影坦克的LSB是大端的，所以从"左"取数据，即先取高位
+                tankByteArray[i] |= (byte)((FIFO >> (32 - compress)) & lsbMask[compress - 1]);
+                FIFO <<= compress;
+                FifoCount -= compress;
             }
 
             for (int i = 0; i < tankColorArray.Length; i++)
@@ -158,16 +185,14 @@ namespace WarFactory.FactoryFunc
 
         static public MemoryStream Decode(FileStream tankPicFile, out string lsbFileName)
         {
-            byte[] lsbMask = { 0x1, 0x3, 0x7, 0xF, 0x1F };
-            SKColor[] sPicColorArray = null;
+            byte[] lsbMask = { 0x1, 0x3, 0x7, 0xF, 0x1F, 0x3F, 0x7F };
             lsbFileName = "";
 
             SKBitmap sPic = SKBitmap.Decode(tankPicFile);
             if (sPic == null) return null;
 
-            sPicColorArray = sPic.Pixels;
+            SKColor[] sPicColorArray = sPic.Pixels;
             byte[] sPicByteArray = new byte[sPicColorArray.Length * 3];
-            List<byte> lsbByte = new List<byte>();
 
             //读取所有像素的RGB字节
             for (int i = 0; i < sPicColorArray.Length; i++)
@@ -181,27 +206,28 @@ namespace WarFactory.FactoryFunc
             /* 原图数据前三个字节推测如下：
              *  Byte[0]:低3位固定为0x0
              *  Byte[1]:低3位固定为0x3
-             *  Byte[2]:低3位数据为LSB隐写的位数，对应网页版的压缩度    1 <= (Byte[2] & 0x7) <= 5
+             *  Byte[2]:低3位数据为LSB隐写的位数，对应网页版的压缩度    1 <= (Byte[2] & 0x7) <= 7
              */
             if ((sPicByteArray[0] & 0x7) != 0x0 ||
                 (sPicByteArray[1] & 0x7) != 0x3 ||
                 (sPicByteArray[2] & 0x7) == 0 ||
-                (sPicByteArray[2] & 0x7) > 5)
+                (sPicByteArray[2] & 0x7) > 7)
                 return null;
             int lsbCompress = sPicByteArray[2] & 0x7;
 
-            //反正就是把LSB数据都读出来了，具体细节很烦，用到了一堆位运算
-            int Fifo = 0;   //先进先出，用于缓存LSB
+            //反正就是把LSB数据都读出来了，具体细节很繁琐，用到了一堆位运算
+            int FIFO = 0;   //先进先出，用于缓存LSB
             int FifoCount = 0;   //已经读取的LSB数量
-            for (int i = 0; i < sPicByteArray.Length - 2; i++)
+            List<byte> lsbByte = new List<byte>();
+            for (int i = 2; i < sPicByteArray.Length; i++)
             {
-                Fifo |= (sPicByteArray[i + 2]) & lsbMask[lsbCompress - 1];
+                FIFO |= (sPicByteArray[i]) & lsbMask[lsbCompress - 1];
                 if (FifoCount >= 8)   //已经读取了一个字节
                 {
-                    lsbByte.Add((byte)((Fifo >> (FifoCount - 8)) & 0xFF));
+                    lsbByte.Add((byte)((FIFO >> (FifoCount - 8)) & 0xFF));
                     FifoCount -= 8;
                 }
-                Fifo <<= lsbCompress;
+                FIFO <<= lsbCompress;
                 FifoCount += lsbCompress;
             }
 
@@ -233,8 +259,7 @@ namespace WarFactory.FactoryFunc
             if (offset == 0xFF) return null;
             offset++;
 
-            int LsbCount;
-            if(int.TryParse(sLsbCount, out LsbCount) == false)return null;
+            if(int.TryParse(sLsbCount, out int LsbCount) == false)return null;
             byte[] lsbByteArray = lsbByte.GetRange(offset, LsbCount).ToArray();
 
             tankPicFile.Close();

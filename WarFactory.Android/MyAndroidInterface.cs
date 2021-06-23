@@ -19,9 +19,9 @@ namespace WarFactory.Droid
         public async Task<string> ImageSave(MemoryStream stream, string fileName = null)
         {
             await Permissions.RequestAsync<Permissions.StorageWrite>();
-            if (Permissions.ShouldShowRationale<Permissions.StorageWrite>()) return "...保存个屁！不给爷权限还想让爷给你造坦克？";
+            if (Permissions.ShouldShowRationale<Permissions.StorageWrite>()) return "...保存个屁！不给爷权限还想让爷造坦克？";
             await Permissions.RequestAsync<Permissions.StorageRead>();
-            if (Permissions.ShouldShowRationale<Permissions.StorageRead>()) return "...保存个屁！不给爷权限还想让爷给你造坦克？";
+            if (Permissions.ShouldShowRationale<Permissions.StorageRead>()) return "...保存个屁！不给爷权限还想让爷造坦克？";
 
             string path = Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, Environment.DirectoryPictures, folder);
             if (fileName == null || fileName == "") fileName = "Tank_" + DateTime.Now.ToLocalTime().ToString("yyyyMMdd_HHmmss") + ".png";

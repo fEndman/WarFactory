@@ -13,22 +13,22 @@
 
 	<RelativeLayout>
 		<Label
-			Text="↓点击↓选择表图(可多选)"
+			Text="选择表图"
 			TextColor="Black"
-			FontSize="16"
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.04}"
+			FontSize="18"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.16}"
 			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0}"/>
 		<Label
-			Text="↓点击↓选择里图(可多选)"
+			Text="选择里图"
 			TextColor="Black"
-			FontSize="16"
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.54}"
+			FontSize="18"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.66}"
 			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0}"/>
 		<Label
-			Text="↘选择↓要现形的无影坦克(可多选)"
+			Text="要现形的无影坦克"
 			TextColor="Black"
-			FontSize="16"
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.015}"
+			FontSize="18"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.12}"
 			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.35}"/>
 		<Label
 			x:Name="LabelFileName"
@@ -69,8 +69,9 @@
 			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.25}"/>
 		<Stepper
 			x:Name="Stepper1"
-			Maximum="2"
-			Value="2"
+			Minimum="1"
+			Maximum="7"
+			Value="4"
 			ScaleX="0.6"
 			ValueChanged="Stepper_ValueChanged"
 			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.05}"
@@ -128,7 +129,7 @@
 		<Button
 			Text="使用方法"
 			TextColor="Black"
-			FontSize="14"
+			FontSize="12"
 			BackgroundColor="LightCyan"
 			CornerRadius="20"
 			Clicked="Button_Clicked_4"
@@ -177,6 +178,35 @@
 			TextColor="Black" 
 			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6}"
 			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.38}"/>
+		<Label
+			x:Name="LabelTips1"
+			Text="点击(可多选)"
+			TextColor="DimGray"
+			FontSize="14"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.16}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.13}"/>
+		<Label
+			x:Name="LabelTips2"
+			Text="点击(可多选)"
+			TextColor="DimGray"
+			FontSize="14"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.66}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.13}"/>
+		<Label
+			x:Name="LabelTips3"
+			Text="点击(可多选)"
+			TextColor="DimGray"
+			FontSize="14"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.21}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.48}"/>
+		<Label
+			x:Name="LabelTips4"
+			Text="点击查看"
+			TextColor="DimGray"
+			FontSize="14"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.36}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}"/>
+
 	</RelativeLayout>
 
 </ContentPage>

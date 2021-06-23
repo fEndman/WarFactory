@@ -11,72 +11,86 @@
 			HorizontalOptions="Center"/>
 	</NavigationPage.TitleView>
 	
-	<RelativeLayout>
+	<ScrollView VerticalOptions="FillAndExpand">
 		<StackLayout>
 			<Label
-			Text="免责声明"
-			TextColor="Red"
-			FontSize="32"
-			FontAttributes="Bold"
-			HorizontalTextAlignment="Center"/>
+				Text="免责声明"
+				TextColor="Red"
+				FontSize="32"
+				FontAttributes="Bold"
+				HorizontalTextAlignment="Center"/>
 			<Label
-			Text="本应用仅供技术研究使用，使用者做出的行为及后果作者概不负责！"
-			TextColor="Red"
-			FontSize="24"
-			FontAttributes="Bold"
-			HorizontalTextAlignment="Center"/>
+				Text="本应用仅供技术研究使用，使用者做出的行为及后果作者概不负责！"
+				TextColor="Red"
+				FontSize="24"
+				FontAttributes="Bold"
+				HorizontalTextAlignment="Center"/>
 			<Button
-			x:Name="Button1"
-			Text="GitHub地址"
-			TextColor="Black"
-			TextTransform="None"
-			FontSize="24"
-			BackgroundColor="Gray"
-			CornerRadius="32"
-			HeightRequest="80"
-			Clicked="Button1_Clicked"/>
+				x:Name="Button1"
+				Text="GitHub地址"
+				TextColor="Black"
+				TextTransform="None"
+				FontSize="24"
+				BackgroundColor="Gray"
+				CornerRadius="32"
+				Clicked="Button1_Clicked"
+				HeightRequest="80"/>
 			<Button
-			x:Name="Button2"
-			Text="贴吧地址"
-			TextColor="Black"
-			TextTransform="None"
-			FontSize="24"
-			BackgroundColor="DeepSkyBlue"
-			CornerRadius="32"
-			HeightRequest="80"
-			Clicked="Button2_Clicked"/>
+				x:Name="Button2"
+				Text="贴吧地址"
+				TextColor="Black"
+				TextTransform="None"
+				FontSize="24"
+				BackgroundColor="DeepSkyBlue"
+				CornerRadius="32"
+				Clicked="Button2_Clicked"
+				HeightRequest="80"/>
 			<Button
-			x:Name="Button3"
-			Text="网盘地址(提取码:pbd6)"
-			TextColor="Black"
-			TextTransform="None"
-			FontSize="18"
-			BackgroundColor="LightBlue"
-			CornerRadius="32"
-			HeightRequest="80"
-			Clicked="Button3_Clicked"/>
+				x:Name="Button3"
+				Text="微云 提取码warfac"
+				TextColor="Black"
+				TextTransform="None"
+				FontSize="22"
+				BackgroundColor="DeepSkyBlue"
+				CornerRadius="32"
+				Clicked="Button3_Clicked"
+				HeightRequest="80"/>
+			<Button
+				x:Name="Button4"
+				Text="度盘(能不用就不用) 提取码pbd6"
+				TextColor="Gray"
+				TextTransform="None"
+				FontSize="16"
+				BackgroundColor="LightGray"
+				CornerRadius="32"
+				Clicked="Button4_Clicked"
+				HeightRequest="80"/>
 			<Label
-			Text="作者：f_Endman"
-			TextColor="DimGray"
-			FontSize="16"
-			HorizontalTextAlignment="Center"/>
+				Text="QQ①群:821789807"
+				TextColor="Black"
+				FontSize="20"
+				HorizontalTextAlignment="Center"/>
+			<Label
+				Text="QQ②群:588915917"
+				TextColor="Black"
+				FontSize="20"
+				HorizontalTextAlignment="Center"/>
+			<Label
+				Text="作者：f_Endman"
+				TextColor="DimGray"
+				FontSize="16"
+				HorizontalTextAlignment="Center"/>
+			<Button
+				x:Name="Button5"
+				Text="投币"
+				TextColor="Black"
+				TextTransform="None"
+				FontSize="18"
+				BackgroundColor="Gold"
+				CornerRadius="32"
+				Clicked="Button5_Clicked"
+				HorizontalOptions ="EndAndExpand"/>
 		</StackLayout>
-		
-		<Button
-			x:Name="Button4"
-			Text="投币"
-			TextColor="Black"
-			TextTransform="None"
-			FontSize="18"
-			BackgroundColor="Gold"
-			CornerRadius="32"
-			HeightRequest="50"
-			Clicked="Button4_Clicked"
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.9}"
-			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.25}"
-			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.08}"/>
-	</RelativeLayout>
-
+	</ScrollView>
 
 </ContentPage>

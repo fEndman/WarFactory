@@ -39,6 +39,8 @@ namespace WarFactory.ViewPage
                 return;
             else
                 Image1.Source = photoFile1.FullPath;
+
+            LabelTips1.Text = "";
         }
 
         private async void Image2_Clicked(object sender, EventArgs e)
@@ -48,6 +50,8 @@ namespace WarFactory.ViewPage
                 return;
             else
                 Image2.Source = photoFile2.FullPath;
+
+            LabelTips2.Text = "";
         }
 
         private async void Image5_Clicked(object sender, EventArgs e)
@@ -99,6 +103,7 @@ namespace WarFactory.ViewPage
             photo2.Encode(photo2Stream, SKEncodedImageFormat.Png, 100);
             photoTank.Encode(photoTankStream, SKEncodedImageFormat.Png, 100);
 
+            LabelTips3.Text = "";
             Image3.Source = ImageSource.FromStream(() => new MemoryStream(photo1Stream.ToArray()));
             Image4.Source = ImageSource.FromStream(() => new MemoryStream(photo2Stream.ToArray()));
             Image5.Source = ImageSource.FromStream(() => new MemoryStream(photoTankStream.ToArray()));

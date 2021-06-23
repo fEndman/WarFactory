@@ -4,7 +4,8 @@
 在这个APP中，你可以用你的手机生成一张幻影坦克图片（目前只支持灰度），也可以生成或现形一张无影坦克图片  
 
 发布版APK文件附在GitHub项目根目录，方便在网盘挂掉后获取下载更新。  
-你也可以在百度网盘下载已经打包好的APK文件: https://pan.baidu.com/s/1B9Aw7J_cKA6W5GwNodRzPA 提取码：pbd6   
+你也可以在腾讯微云下载已经打包好的APK文件：https://share.weiyun.com/yvkPZ89G 密码：warfac  
+~~你也可以在百度网盘下载已经打包好的APK文件: https://pan.baidu.com/s/1B9Aw7J_cKA6W5GwNodRzPA 提取码：pbd6~~  
 百度贴吧帖子: https://tieba.baidu.com/p/7308060718 https://tieba.baidu.com/p/7308042884  
 
 **使用方法详见APP内部**  
@@ -58,3 +59,8 @@ Version 1.3.2
 Version 1.4  
 2021-06-21  
     添加了无影生成时表图里图的多选批量生成  
+
+Version 1.5  
+2021-06-23  
+    改良了生成无影坦克的算法，现在1-7压缩度的图都能生成(6和7属于测试，兼容性稳定性都很差)  
+    改进了UI  

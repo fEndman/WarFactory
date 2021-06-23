@@ -25,7 +25,12 @@ namespace WarFactory
             await Navigation.PushAsync(new LsbTankPage());
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void Button1_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new VersionPage());
+        }
+
+        private async void Button2_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AboutPage());
         }

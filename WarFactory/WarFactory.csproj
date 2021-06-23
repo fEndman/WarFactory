@@ -11,15 +11,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\BaiduNetDisk.png" />
     <None Remove="Resources\File.png" />
     <None Remove="Resources\GitHub.png" />
     <None Remove="Resources\Images.png" />
     <None Remove="Resources\LsbTank.png" />
     <None Remove="Resources\MirageTank.png" />
-    <None Remove="Resources\NetDisk.png" />
     <None Remove="Resources\Pay.png" />
     <None Remove="Resources\simhei.ttf" />
     <None Remove="Resources\Tieba.png" />
+    <None Remove="Resources\Version.txt" />
+    <None Remove="Resources\WeiYun.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\WeiYun.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,16 +37,23 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\MirageTank.png" />
-    <EmbeddedResource Include="Resources\NetDisk.png" />
+    <EmbeddedResource Include="Resources\BaiduNetDisk.png" />
     <EmbeddedResource Include="Resources\Pay.png" />
     <EmbeddedResource Include="Resources\simhei.ttf" />
     <EmbeddedResource Include="Resources\Tieba.png" />
+    <EmbeddedResource Include="Resources\Version.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Xamarin.iOS">
+      <HintPath>D:\Programs\Microsoft Visual Studio\2019\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\Xamarin.iOS\v1.0\Xamarin.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -72,6 +85,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="ViewPage\PayPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ViewPage\VersionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
