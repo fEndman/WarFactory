@@ -5,42 +5,56 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using WarFactory.MyInterface;
 using Environment = Android.OS.Environment;
-using Uri = Android.Net.Uri;
-using File = Java.IO.File;
-using Android.Content;
+using Android.Media;
 
 [assembly: Dependency(typeof(WarFactory.Droid.PlatformService))]
 namespace WarFactory.Droid
 {
     public class PlatformService : IPlatformService
     {
-        private string folder = "战车工厂";
+        private readonly string albumName = "战车工厂";
 
-        public async Task<string> ImageSave(MemoryStream stream, string fileName = null)
+        public async Task<string> ImageSave(MemoryStream stream, bool compatibleMode, string fileName = null)
         {
             await Permissions.RequestAsync<Permissions.StorageWrite>();
             if (Permissions.ShouldShowRationale<Permissions.StorageWrite>()) return "...保存个屁！不给爷权限还想让爷造坦克？";
             await Permissions.RequestAsync<Permissions.StorageRead>();
             if (Permissions.ShouldShowRationale<Permissions.StorageRead>()) return "...保存个屁！不给爷权限还想让爷造坦克？";
 
-            string path = Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, Environment.DirectoryPictures, folder);
+            //用于替代Environment.ExternalStorageDirectory
+            //GetExternalFilesDir()会获取到 /storage/emulated/0/Android/data/应用包名/files
+            string externalRootPath;
+            if (compatibleMode)
+            {
+                externalRootPath = "/storage/emulated/0/";
+            }
+            else
+            {
+                DirectoryInfo externalStorageDir = new DirectoryInfo(Platform.AppContext.GetExternalFilesDir(null).AbsolutePath);
+                externalRootPath = externalStorageDir.Parent.Parent.Parent.Parent.FullName;
+            }
+            string path = Path.Combine(externalRootPath, Environment.DirectoryPictures, albumName);
             if (fileName == null || fileName == "") fileName = "Tank_" + DateTime.Now.ToLocalTime().ToString("yyyyMMdd_HHmmss") + ".png";
 
-            if (Directory.Exists(path) == false)
-                Directory.CreateDirectory(path);
+            try
+            {
+                if (Directory.Exists(path) == false)
+                    Directory.CreateDirectory(path);
+            }
+            catch(UnauthorizedAccessException)
+            {
+                return "。。。保存失败！创建目录失败！！动态获取的目录为：" + path + "请尝试兼容模式！！";
+            }
 
             path = Path.Combine(path, fileName);
             FileStream photoTankFile = new FileStream(path, FileMode.Create);
             byte[] photoTank = stream.ToArray();
-
             photoTankFile.Write(photoTank, 0, photoTank.Length);
             photoTankFile.Flush();
             photoTankFile.Close();
 
-            Intent intent = new Intent(Intent.ActionMediaScannerScanFile);
-            Uri uri = Uri.FromFile(new File(path));
-            intent.SetData(uri);
-            Platform.AppContext.SendBroadcast(intent);
+            string[] paths = { path };
+            MediaScannerConnection.ScanFile(Platform.AppContext, paths, null, null);
 
             return Path.Combine(fileName);
         }
@@ -55,17 +69,20 @@ namespace WarFactory.Droid
 
         public string GetAbsoluteSavePath()
         {
-            return Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, Environment.DirectoryPictures, folder);
+            //用于替代Environment.ExternalStorageDirectory
+            //GetExternalFilesDir()会获取到 /storage/emulated/0/Android/data/应用包名/files
+            DirectoryInfo externalStorageDir = new DirectoryInfo(Platform.AppContext.GetExternalFilesDir(null).AbsolutePath);
+            return Path.Combine(externalStorageDir.Parent.Parent.Parent.Parent.FullName, Environment.DirectoryPictures, albumName);
         }
 
         public string GetSavePath()
         {
-            return Path.Combine(Environment.DirectoryPictures, folder);
+            return Path.Combine(Environment.DirectoryPictures, albumName);
         }
 
         public string GetVersion()
         {
-            return Platform.CurrentActivity.PackageManager.GetPackageInfo(Platform.CurrentActivity.PackageName, 0).VersionName;
+            return AppInfo.VersionString;
         }
     }
 }

@@ -7,12 +7,13 @@ using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
 using WarFactory.FactoryFunc;
 using WarFactory.MyInterface;
+using MimeMapping;
 
 namespace WarFactory.ViewPage
 {
-    public struct sInsideFile
+    public struct SInsideFile
     {
-        public sInsideFile(string name, MemoryStream file)
+        public SInsideFile(string name, MemoryStream file)
         {
             Name = name;
             File = file;
@@ -32,12 +33,21 @@ namespace WarFactory.ViewPage
         private List<FileResult> photoFile1 = new List<FileResult>();
         private List<FileResult> photoFile2 = new List<FileResult>();
         private List<FileResult> photoFile3 = new List<FileResult>();
-        List<sInsideFile> insideFile = new List<sInsideFile>();
+        List<SInsideFile> insideFile = new List<SInsideFile>();
 
         public LsbTankPage()
         {
             InitializeComponent();
             this.BackgroundColor = Color.AliceBlue;
+
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                LabelTips1.Text = "点击";
+                LabelTips2.Text = "点击";
+                LabelTips3.Text = "点击(原图保存)";
+                Switch1.IsToggled = true;
+                compatibleMode = true;
+            }
         }
 
         private async void Image1_Clicked(object sender, EventArgs e)
@@ -63,7 +73,12 @@ namespace WarFactory.ViewPage
                 foreach (FileResult file in files)
                     photoFile1.Add(file);
                 photoFile1.Reverse();   //选取器多选是先选的排在最后，我们要的是先选在前，所以颠倒排序一下
-                if (photoFile1.Count == 1)
+                if (photoFile1.Count == 0)
+                {
+                    Image1.Source = null;
+                    return;
+                }
+                else if (photoFile1.Count == 1)
                     Image1.Source = photoFile1[0].FullPath;
                 else
                     Image1.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
@@ -95,7 +110,12 @@ namespace WarFactory.ViewPage
                 foreach (FileResult file in files)
                     photoFile2.Add(file);
                 photoFile2.Reverse();   //选取器多选是先选的排在最后，我们要的是先选在前，所以颠倒排序一下
-                if (photoFile2.Count == 1)
+                if (photoFile2.Count == 0)
+                {
+                    Image2.Source = null;
+                    return;
+                }
+                else if (photoFile2.Count == 1)
                 {
                     string extension = photoFile2[0].FileName.Substring(photoFile2[0].FileName.LastIndexOf(".") + 1).ToLower();
                     if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "bmp" || extension == "gif")
@@ -133,7 +153,12 @@ namespace WarFactory.ViewPage
                 foreach (FileResult file in files)
                     photoFile3.Add(file);
                 photoFile3.Reverse();   //选取器多选是先选的排在最后，我们要的是先选在前，所以颠倒排序一下
-                if (photoFile3.Count == 1)
+                if (photoFile3.Count == 0)
+                {
+                    Image3.Source = null;
+                    return;
+                }
+                else if (photoFile3.Count == 1)
                     Image3.Source = photoFile3[0].FullPath;
                 else
                     Image3.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
@@ -186,7 +211,7 @@ namespace WarFactory.ViewPage
                 }
             }
 
-            foreach (sInsideFile insFile in insideFile)
+            foreach (SInsideFile insFile in insideFile)
                 insFile.File.Dispose();
             insideFile.Clear();
             LabelFileName.Text = "";
@@ -218,7 +243,7 @@ namespace WarFactory.ViewPage
                                                              compression);
                     if (tempStream != null)
                     {
-                        insideFile.Add(new sInsideFile(fileName + "_" + photoIndex.ToString() + ".png", tempStream));
+                        insideFile.Add(new SInsideFile(fileName + "_" + photoIndex.ToString() + ".png", tempStream));
                         tempStream.Dispose();
                     }
                 }
@@ -226,12 +251,18 @@ namespace WarFactory.ViewPage
 
             LabelTips4.Text = "";
             if (insideFile.Count == 1)
+            {
                 Image4.Source = ImageSource.FromStream(() => new MemoryStream(insideFile[0].File.ToArray()));
+                LabelFileName.Text = "成功生成！发送时记得原图发送并且关闭水印！";
+            }
             else
             {
                 Image4.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
                 LabelFileName.Text = "成功生成" + insideFile.Count.ToString() + "个文件，点击进入查看列表";
             }
+
+            if(DeviceInfo.Platform == DevicePlatform.iOS)
+                await DisplayAlert("警告", "iOS设备似乎即使发送原图也会被压缩，这也就注定了iOS发出去的坦克图全是锤子，因此请谨慎发图！", "确认");
 
             Button1.IsEnabled = true;
             Button2.IsEnabled = true;
@@ -259,7 +290,7 @@ namespace WarFactory.ViewPage
                 return;
             }
 
-            foreach (sInsideFile insFile in insideFile)
+            foreach (SInsideFile insFile in insideFile)
                 insFile.File.Dispose();
             insideFile.Clear();
             Image4.Source = null;
@@ -272,11 +303,10 @@ namespace WarFactory.ViewPage
             {
                 foreach (FileStream fs in photo3Stream)
                 {
-                    string tempName = null;
-                    MemoryStream tempStream = LsbTank.Decode(fs, out tempName);
+                    MemoryStream tempStream = LsbTank.Decode(fs, out string tempName);
                     if (tempStream != null)
                     {
-                        insideFile.Add(new sInsideFile(tempName, tempStream));
+                        insideFile.Add(new SInsideFile(tempName, tempStream));
                         tempStream.Dispose();
                     }
                 }
@@ -286,6 +316,8 @@ namespace WarFactory.ViewPage
             if (insideFile.Count == 0)
             {
                 await DisplayAlert("警告", "这些图不是无影坦克！", "确认");
+                if(MimeUtility.GetMimeMapping(photoFile3[0].FileName) != MimeUtility.GetMimeMapping(".png"))
+                    await DisplayAlert("警告", "如果确定这不是一张锤子图，请 *查看原图* 后 保存 再现形！", "确认");
                 LabelFileName.Text = "";
             }
             else if(insideFile.Count == 1)
@@ -324,9 +356,9 @@ namespace WarFactory.ViewPage
                     DependencyService.Get<IPlatformService>().GetSavePath() +
                     "\n可在 战车工厂 相册中找到\n文件名如下：";
 
-                foreach (sInsideFile insFile in insideFile)
+                foreach (SInsideFile insFile in insideFile)
                 {
-                    string name = await DependencyService.Get<IPlatformService>().ImageSave(insFile.File, insFile.Name);
+                    string name = await DependencyService.Get<IPlatformService>().ImageSave(insFile.File, compatibleMode, insFile.Name);
                     tempStr += "\n" + name;
                 }
 
@@ -345,9 +377,17 @@ namespace WarFactory.ViewPage
             Label1.Text = compression.ToString();
         }
 
-        private void Switch1_Toggled(object sender, ToggledEventArgs e)
+        private async void Switch1_Toggled(object sender, ToggledEventArgs e)
         {
-            compatibleMode = Switch1.IsToggled;
+            if (DeviceInfo.Platform == DevicePlatform.iOS && Switch1.IsToggled == false)
+            {
+                await DisplayAlert("警告", "iOS的选择文件控件以及多选控件有问题！请保持兼容模式开启！", "确认");
+                compatibleMode = Switch1.IsToggled;
+            }
+            else
+            {
+                compatibleMode = Switch1.IsToggled;
+            }
         }
     }
 }

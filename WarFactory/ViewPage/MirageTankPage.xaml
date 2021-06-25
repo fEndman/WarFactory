@@ -132,21 +132,21 @@
 			TextColor="Gray"
 			FontSize="14"
 			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.21}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.13}"/>
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.06}"/>
 		<Label
 			x:Name="LabelTips2"
 			Text="点击"
 			TextColor="Gray"
 			FontSize="14"
 			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.72}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.13}"/>
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.06}"/>
 		<Label
 			x:Name="LabelTips3"
 			Text="点击查看"
 			TextColor="DimGray"
 			FontSize="14"
 			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.36}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}"/>
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.64}"/>
 
 	</RelativeLayout>
 

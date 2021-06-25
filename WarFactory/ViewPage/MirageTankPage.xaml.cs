@@ -116,7 +116,7 @@ namespace WarFactory.ViewPage
             if (photoTankStream.Length != 0)
             {
                 string path = DependencyService.Get<IPlatformService>().GetSavePath();
-                path += await DependencyService.Get<IPlatformService>().ImageSave(photoTankStream);
+                path += await DependencyService.Get<IPlatformService>().ImageSave(photoTankStream, false);
                 await DisplayAlert("完成", "已保存至：\n" + path + "\n可在 战车工厂 相册中找到", "确认");
             }
             else

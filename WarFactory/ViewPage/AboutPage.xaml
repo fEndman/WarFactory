@@ -47,7 +47,7 @@
 				HeightRequest="80"/>
 			<Button
 				x:Name="Button3"
-				Text="微云 提取码warfac"
+				Text="蓝奏云(不限速) 提取码76vz"
 				TextColor="Black"
 				TextTransform="None"
 				FontSize="22"
@@ -57,14 +57,35 @@
 				HeightRequest="80"/>
 			<Button
 				x:Name="Button4"
+				Text="微云 提取码warfac"
+				TextColor="Black"
+				TextTransform="None"
+				FontSize="22"
+				BackgroundColor="SkyBlue"
+				CornerRadius="32"
+				Clicked="Button4_Clicked"
+				HeightRequest="80"/>
+			<Button
+				x:Name="Button5"
 				Text="度盘(能不用就不用) 提取码pbd6"
 				TextColor="Gray"
 				TextTransform="None"
 				FontSize="16"
 				BackgroundColor="LightGray"
 				CornerRadius="32"
-				Clicked="Button4_Clicked"
+				Clicked="Button5_Clicked"
 				HeightRequest="80"/>
+			<Button
+				x:Name="Button6"
+				Text="投币"
+				TextColor="Black"
+				TextTransform="None"
+				FontSize="18"
+				BackgroundColor="Gold"
+				CornerRadius="32"
+				Clicked="Button6_Clicked"
+				WidthRequest="80"
+				HorizontalOptions ="EndAndExpand"/>
 			<Label
 				Text="QQ①群:821789807"
 				TextColor="Black"
@@ -80,16 +101,6 @@
 				TextColor="DimGray"
 				FontSize="16"
 				HorizontalTextAlignment="Center"/>
-			<Button
-				x:Name="Button5"
-				Text="投币"
-				TextColor="Black"
-				TextTransform="None"
-				FontSize="18"
-				BackgroundColor="Gold"
-				CornerRadius="32"
-				Clicked="Button5_Clicked"
-				HorizontalOptions ="EndAndExpand"/>
 		</StackLayout>
 	</ScrollView>
 

@@ -8,7 +8,7 @@ namespace WarFactory.MyInterface
 {
     public interface IPlatformService
     {
-        Task<string> ImageSave(MemoryStream stream, string fileName = null);
+        Task<string> ImageSave(MemoryStream stream, bool compatibleMode, string fileName = null);
         Task RequestPermissions();
         string GetAbsoluteSavePath();
         string GetSavePath();

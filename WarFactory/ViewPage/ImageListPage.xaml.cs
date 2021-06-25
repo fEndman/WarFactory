@@ -35,11 +35,11 @@ namespace WarFactory.ViewPage
 
         List<ImageObj> imageObjs = new List<ImageObj>();
 
-        public ImageListPage(List<sInsideFile> insideFile)
+        public ImageListPage(List<SInsideFile> insideFile)
         {
             InitializeComponent();
 
-            foreach (sInsideFile insFile in insideFile)
+            foreach (SInsideFile insFile in insideFile)
             {
                 ImageSource tempSource = null;
 

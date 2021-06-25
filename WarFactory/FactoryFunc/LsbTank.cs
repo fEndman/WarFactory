@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using SkiaSharp;
 using System.Text;
+using MimeMapping;
 
 namespace WarFactory.FactoryFunc
 {
@@ -82,39 +83,11 @@ namespace WarFactory.FactoryFunc
 
             insPicByteList.Add(0x01);
 
-            char[] insFormat;
-            string extName = insPicFile.Name.Substring(insPicFile.Name.LastIndexOf(".") + 1).ToLower();
+            char[] insMime;
+            insMime = MimeUtility.GetMimeMapping(insPicFile.Name).ToCharArray();
 
-            switch (extName)
-            {
-                case "png":
-                    insFormat = "image/png".ToCharArray();
-                    break;
-                case "gif":
-                    insFormat = "image/gif".ToCharArray();
-                    break;
-                case "jpg":
-                case "jpeg":
-                    insFormat = "image/jpeg".ToCharArray();
-                    break;
-                case "avi":
-                    insFormat = "video/avi".ToCharArray();
-                    break;
-                case "mp4":
-                    insFormat = "video/mp4".ToCharArray();
-                    break;
-                case "mp3":
-                case "wav":
-                case "ogg":
-                    insFormat = "audio/mpeg".ToCharArray();
-                    break;
-                default:
-                    insFormat = "".ToCharArray();
-                    break;
-            }
-
-            for (int i = 0; i < insFormat.Length; i++)
-                insPicByteList.Add((byte)insFormat[i]);
+            for (int i = 0; i < insMime.Length; i++)
+                insPicByteList.Add((byte)insMime[i]);
 
             insPicByteList.Add(0x00);
 
@@ -232,7 +205,7 @@ namespace WarFactory.FactoryFunc
             }
 
             //循环检测至少256个字节来获取LSB文件信息
-            string sLsbCount = "", lsbFileType = "";
+            string sLsbCount = "", lsbFileMime = "";
             List<byte> lsbFileNameList = new List<byte>();
             int offset = 0;
             while (offset < 0xFF)
@@ -252,7 +225,7 @@ namespace WarFactory.FactoryFunc
             offset++;
             while (offset < 0xFF)
             {
-                if (lsbByte[offset] != 0x00) lsbFileType += (char)lsbByte[offset];
+                if (lsbByte[offset] != 0x00) lsbFileMime += (char)lsbByte[offset];
                 else break;
                 offset++;
             }

@@ -33,7 +33,7 @@
 		<Label
 			x:Name="LabelFileName"
 			FontSize="16"
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.18}"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
 			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}"/>
 		<ImageButton
 			x:Name="Image1"
@@ -184,28 +184,28 @@
 			TextColor="DimGray"
 			FontSize="14"
 			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.16}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.13}"/>
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.06}"/>
 		<Label
 			x:Name="LabelTips2"
 			Text="点击(可多选)"
 			TextColor="DimGray"
 			FontSize="14"
 			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.66}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.13}"/>
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.06}"/>
 		<Label
 			x:Name="LabelTips3"
-			Text="点击(可多选)"
+			Text="点击(原图保存)(可多选)"
 			TextColor="DimGray"
-			FontSize="14"
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.21}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.48}"/>
+			FontSize="12"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.15}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.41}"/>
 		<Label
 			x:Name="LabelTips4"
 			Text="点击查看"
 			TextColor="DimGray"
 			FontSize="14"
 			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.36}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}"/>
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.66}"/>
 
 	</RelativeLayout>
 
