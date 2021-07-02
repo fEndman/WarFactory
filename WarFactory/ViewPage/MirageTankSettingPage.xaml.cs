@@ -27,18 +27,22 @@ namespace WarFactory.ViewPage
         private void Slider1_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             Label1.Text = Slider1.Value.ToString("F2");
-            MirageTankPage.Photo1_K = (float)Slider1.Value;
         }
 
         private void Slider2_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             Label2.Text = Slider2.Value.ToString("F2");
-            MirageTankPage.Photo2_K = (float)Slider2.Value;
         }
 
         private void Slider3_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             Label3.Text = Slider3.Value.ToString("F0");
+        }
+
+        override protected void OnDisappearing()
+        {
+            MirageTankPage.Photo1_K = (float)Slider1.Value;
+            MirageTankPage.Photo2_K = (float)Slider2.Value;
             MirageTankPage.PhotoThreshold = (byte)Slider3.Value;
         }
     }

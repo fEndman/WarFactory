@@ -67,15 +67,6 @@
 			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.64}"
 			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5}"
 			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.25}"/>
-		<Stepper
-			x:Name="Stepper1"
-			Minimum="1"
-			Maximum="7"
-			Value="4"
-			ScaleX="0.6"
-			ValueChanged="Stepper_ValueChanged"
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=-0.05}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.26}"/>
 		<ActivityIndicator
 			x:Name="ActivityIndicator1"
 			IsRunning="False"
@@ -84,30 +75,23 @@
 			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}"
 			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.1}"
 			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.1}"/>
-		<Switch
-			x:Name="Switch1"
-			OnColor="DeepSkyBlue"
-			ThumbColor="White"
-			Toggled="Switch1_Toggled"
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.8}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.445}"/>
 		<Button
 			x:Name="Button1"
 			Text="生成"
 			TextColor="Black"
-			FontSize="Large"
+			FontSize="22"
 			BackgroundColor="DeepSkyBlue"
 			CornerRadius="20"
 			Clicked="Button_Clicked_1"
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.64}"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.25}"
 			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.265}"
-			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.3}"
+			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.36}"
 			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.08}"/>
 		<Button
 			x:Name="Button2"
 			Text="现形"
 			TextColor="Black"
-			FontSize="Large"
+			FontSize="22"
 			BackgroundColor="DeepSkyBlue"
 			CornerRadius="20"
 			Clicked="Button_Clicked_2"
@@ -118,7 +102,7 @@
 		<Button
 			Text="保存"
 			TextColor="Black"
-			FontSize="Large"
+			FontSize="22"
 			BackgroundColor="MediumSeaGreen"
 			CornerRadius="20"
 			Clicked="Button_Clicked_3"
@@ -138,46 +122,27 @@
 			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.24}"
 			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.06}"/>
 		<Button
-			Text="?"
+			Text="调整参数"
 			TextColor="Black"
 			FontSize="16"
-			BackgroundColor="AliceBlue"
-			Clicked="Button_Clicked_4"
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.57}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.43}"
-			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.08}"
-			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.06}"/>
-		<Entry
-			x:Name="Entry1"
-			Text="TK"
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.7}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.36}"
-			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.2}"
+			BackgroundColor="SkyBlue"
+			CornerRadius="20"
+			Clicked="Button_Clicked_5"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.65}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.265}"
+			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.3}"
 			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.08}"/>
-		<Label
-			Text="兼容模式："
+		<Button
+			Text="高级功能"
 			TextColor="Black"
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.64}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.45}"/>
-		<Label
-			Text="压缩度："
-			FontSize="20"
-			TextColor="Black" 
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.34}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.28}"/>
-		<Label
-			x:Name="Label1"
-			Text="4"
-			FontSize="20"
-			TextColor="Black" 
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.52}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.28}"/>
-		<Label
-			Text="水印:"
 			FontSize="16"
-			TextColor="Black" 
-			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6}"
-			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.38}"/>
+			BackgroundColor="LightGreen"
+			CornerRadius="20"
+			Clicked="Button_Clicked_6"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.65}"
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.38}"
+			RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.3}"
+			RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.08}"/>
 		<Label
 			x:Name="LabelTips1"
 			Text="点击(可多选)"

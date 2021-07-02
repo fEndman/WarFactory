@@ -32,7 +32,6 @@ namespace WarFactory.ViewPage
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ImageListPage : ContentPage
     {
-
         List<ImageObj> imageObjs = new List<ImageObj>();
 
         public ImageListPage(List<SInsideFile> insideFile)

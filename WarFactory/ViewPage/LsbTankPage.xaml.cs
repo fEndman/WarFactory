@@ -26,9 +26,19 @@ namespace WarFactory.ViewPage
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LsbTankPage : ContentPage
     {
-        int compression = 4;
-
+        static private int compression = 4;
         static private bool compatibleMode;
+        static private string info = "TK";
+        static private bool captureMode = false;
+        static private bool isBackstage = false;
+        static private DateTime lastOpenedTime = DateTime.MaxValue;
+
+        static public int Compression { get { return compression; } set { compression = value; } }
+        static public bool CompatibleMode { get { return compatibleMode; } set { compatibleMode = value; } }
+        static public string Info { get { return info; } set { info = value; } }
+        static public bool CaptureMode { get { return captureMode; } set { captureMode = value; } }
+        static public bool IsBackstage { get { return isBackstage; } set { isBackstage = value; } } //在APP.xaml.cs切后台事件里操作
+        static public DateTime LastOpenedTime { get { return lastOpenedTime; } set { lastOpenedTime = value; } }
 
         private List<FileResult> photoFile1 = new List<FileResult>();
         private List<FileResult> photoFile2 = new List<FileResult>();
@@ -38,14 +48,17 @@ namespace WarFactory.ViewPage
         public LsbTankPage()
         {
             InitializeComponent();
-            this.BackgroundColor = Color.AliceBlue;
+            BackgroundColor = Color.AliceBlue;
 
+            compression = 4;
+            compatibleMode = false;
+            info = "TK";
+            captureMode = false;
             if (DeviceInfo.Platform == DevicePlatform.iOS)
             {
                 LabelTips1.Text = "点击";
                 LabelTips2.Text = "点击";
                 LabelTips3.Text = "点击(原图保存)";
-                Switch1.IsToggled = true;
                 compatibleMode = true;
             }
         }
@@ -57,7 +70,10 @@ namespace WarFactory.ViewPage
                 photoFile1.Clear();
                 FileResult file = await MediaPicker.PickPhotoAsync();
                 if (file == null)
+                {
+                    Image1.Source = null;
                     return;
+                }
                 else
                 {
                     photoFile1.Add(file);
@@ -68,17 +84,16 @@ namespace WarFactory.ViewPage
             {
                 photoFile1.Clear();
                 IEnumerable<FileResult> files = await FilePicker.PickMultipleAsync(PickOptions.Images);
-                if (files == null) return;
-
-                foreach (FileResult file in files)
-                    photoFile1.Add(file);
-                photoFile1.Reverse();   //选取器多选是先选的排在最后，我们要的是先选在前，所以颠倒排序一下
-                if (photoFile1.Count == 0)
+                if (files == null)
                 {
                     Image1.Source = null;
                     return;
                 }
-                else if (photoFile1.Count == 1)
+
+                foreach (FileResult file in files)
+                    photoFile1.Add(file);
+                photoFile1.Reverse();   //选取器多选是先选的排在最后，我们要的是先选在前，所以颠倒排序一下
+                if (photoFile1.Count == 1)
                     Image1.Source = photoFile1[0].FullPath;
                 else
                     Image1.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
@@ -94,7 +109,10 @@ namespace WarFactory.ViewPage
                 photoFile2.Clear();
                 FileResult file = await MediaPicker.PickPhotoAsync();
                 if (file == null)
+                {
+                    Image2.Source = null;
                     return;
+                }
                 else
                 {
                     photoFile2.Add(file);
@@ -105,17 +123,16 @@ namespace WarFactory.ViewPage
             {
                 photoFile2.Clear();
                 IEnumerable<FileResult> files = await FilePicker.PickMultipleAsync();   //可选取其他文件作为里图
-                if (files == null) return;
-
-                foreach (FileResult file in files)
-                    photoFile2.Add(file);
-                photoFile2.Reverse();   //选取器多选是先选的排在最后，我们要的是先选在前，所以颠倒排序一下
-                if (photoFile2.Count == 0)
+                if (files == null)
                 {
                     Image2.Source = null;
                     return;
                 }
-                else if (photoFile2.Count == 1)
+
+                foreach (FileResult file in files)
+                    photoFile2.Add(file);
+                photoFile2.Reverse();   //选取器多选是先选的排在最后，我们要的是先选在前，所以颠倒排序一下
+                if (photoFile2.Count == 1)
                 {
                     string extension = photoFile2[0].FileName.Substring(photoFile2[0].FileName.LastIndexOf(".") + 1).ToLower();
                     if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "bmp" || extension == "gif")
@@ -137,7 +154,10 @@ namespace WarFactory.ViewPage
                 photoFile3.Clear();
                 FileResult file = await MediaPicker.PickPhotoAsync();
                 if (file == null)
+                {
+                    Image3.Source = null;
                     return;
+                }
                 else
                 {
                     photoFile3.Add(file);
@@ -148,17 +168,16 @@ namespace WarFactory.ViewPage
             {
                 photoFile3.Clear();
                 IEnumerable<FileResult> files = await FilePicker.PickMultipleAsync(PickOptions.Images);
-                if (files == null) return;
-
-                foreach (FileResult file in files)
-                    photoFile3.Add(file);
-                photoFile3.Reverse();   //选取器多选是先选的排在最后，我们要的是先选在前，所以颠倒排序一下
-                if (photoFile3.Count == 0)
+                if (files == null)
                 {
                     Image3.Source = null;
                     return;
                 }
-                else if (photoFile3.Count == 1)
+
+                foreach (FileResult file in files)
+                    photoFile3.Add(file);
+                photoFile3.Reverse();   //选取器多选是先选的排在最后，我们要的是先选在前，所以颠倒排序一下
+                if (photoFile3.Count == 1)
                     Image3.Source = photoFile3[0].FullPath;
                 else
                     Image3.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
@@ -226,12 +245,8 @@ namespace WarFactory.ViewPage
 
             string fileName = "Tank_" + DateTime.Now.ToLocalTime().ToString("yyyyMMdd_HHmmss");
             int photoIndex = 0;
-            string info = Entry1.Text;
             if ((string.IsNullOrEmpty(info) || string.IsNullOrWhiteSpace(info)) && photoFile2.Count == 1)
-            {
                 info = "TK";
-                Entry1.Text = "TK";
-            }
             await Task.Run(() =>
             {
                 foreach (FileResult fr in photoFile2)
@@ -286,6 +301,12 @@ namespace WarFactory.ViewPage
             catch (UnauthorizedAccessException)
             {
                 await DisplayAlert("警告", "权限异常！", "确认");
+                photo3Stream.Clear();
+                return;
+            }
+            catch (FileNotFoundException)
+            {
+                await DisplayAlert("警告", "文件不存在！", "确认");
                 photo3Stream.Clear();
                 return;
             }
@@ -371,23 +392,57 @@ namespace WarFactory.ViewPage
             await Navigation.PushAsync(new CourseForLsbTank());
         }
 
-        private void Stepper_ValueChanged(object sender, ValueChangedEventArgs e)
+        private async void Button_Clicked_5(object sender, EventArgs e)
         {
-            compression = (int)Stepper1.Value;
-            Label1.Text = compression.ToString();
+            await Navigation.PushAsync(new LsbTankSettingPage(compression, info, compatibleMode));
         }
 
-        private async void Switch1_Toggled(object sender, ToggledEventArgs e)
+        private async void Button_Clicked_6(object sender, EventArgs e)
         {
-            if (DeviceInfo.Platform == DevicePlatform.iOS && Switch1.IsToggled == false)
+            await Navigation.PushAsync(new LsbTankAdvancedFunctionPage(this, captureMode));
+        }
+
+        public void RunScanner()
+        {
+            Task.Run(() =>
             {
-                await DisplayAlert("警告", "iOS的选择文件控件以及多选控件有问题！请保持兼容模式开启！", "确认");
-                compatibleMode = Switch1.IsToggled;
-            }
-            else
-            {
-                compatibleMode = Switch1.IsToggled;
-            }
+                while (captureMode)
+                {
+                    DateTime utc = new DateTime(1970, 1, 1, 0, 0, 0, 0);    //UNIX时间戳
+                    long timestamp = Convert.ToInt64((DateTime.UtcNow - utc).TotalMilliseconds);
+                    while (!isBackstage && captureMode) ;   //等待进入后台
+                    while (isBackstage && captureMode) ;    //等待切回应用
+                    string[] newPics = DependencyService.Get<IPlatformService>().GetLatestPictures(timestamp);  //获取这期间新增的图片
+                    foreach (string newPic in newPics)
+                        photoFile3.Add(new FileResult(newPic));
+                    //在主线程上刷新UI
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert("完成", "这次在后台捕获到了" + newPics.Length.ToString() + "张图片！您可以继续下载图片或手动关闭捕获模式！", "确认");
+                        if (photoFile3.Count == 1)
+                            Image3.Source = photoFile3[0].FullPath;
+                        else if (photoFile3.Count > 1)
+                            Image3.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
+                        if (photoFile3.Count != 0)
+                            LabelTips3.Text = "";
+                    });
+                }
+            });
+        }
+
+        public void AddTankPicture(FileResult fileResult)
+        {
+            foreach (FileResult file in photoFile3)
+                if (fileResult.FullPath == file.FullPath)
+                    return;
+            photoFile3.Add(fileResult);
+
+            if (photoFile3.Count == 1)
+                Image3.Source = photoFile3[0].FullPath;
+            else if(photoFile3.Count > 1)
+                Image3.Source = ImageSource.FromResource("WarFactory.Resources.Images.png");
+            if (photoFile3.Count != 0)
+                LabelTips3.Text = "";
         }
     }
 }

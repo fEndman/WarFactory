@@ -4,8 +4,13 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using WarFactory.MyInterface;
-using Environment = Android.OS.Environment;
 using Android.Media;
+using Android.Provider;
+using Android.Graphics;
+using Android.Database;
+using Environment = Android.OS.Environment;
+using Path = System.IO.Path;
+using System.Collections.Generic;
 
 [assembly: Dependency(typeof(WarFactory.Droid.PlatformService))]
 namespace WarFactory.Droid
@@ -83,6 +88,33 @@ namespace WarFactory.Droid
         public string GetVersion()
         {
             return AppInfo.VersionString;
+        }
+
+        //返回所有保存时间比这个时间点晚的图片的路径
+        [Obsolete]  //烦死了!
+        public string[] GetLatestPictures(long timestamp)
+        {
+            //相当于是得到了一个纵列是Data和DateTaken，横排是按DateTaken从新到旧排列的列表(cursor)
+            ICursor cursor = Platform.AppContext.ContentResolver.Query(
+                MediaStore.Images.Media.ExternalContentUri,
+                new string[] { MediaStore.Images.Media.InterfaceConsts.Data, MediaStore.Images.Media.InterfaceConsts.DateTaken },
+                null,
+                null,
+                MediaStore.Images.Media.InterfaceConsts.DateTaken + " desc");
+            List<string> paths = new List<string>();
+            while (cursor.MoveToNext())
+            {
+                long picTimestamp = cursor.GetLong(cursor.GetColumnIndexOrThrow(MediaStore.Images.Media.InterfaceConsts.DateTaken));
+                if (timestamp < picTimestamp)
+                {
+                    string fileName = cursor.GetString(cursor.GetColumnIndex(MediaStore.Images.Media.InterfaceConsts.Data));
+                    paths.Add(fileName);
+                }
+                else    //由于DateTaken是从新到旧的，所以现在这个不是新增的，之后的也都不会是
+                    break;
+            }
+            cursor.Dispose();
+            return paths.ToArray();
         }
     }
 }

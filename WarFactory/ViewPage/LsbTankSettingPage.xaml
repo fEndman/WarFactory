@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WarFactory.ViewPage.LsbTankSettingPage">
+
+	<NavigationPage.TitleView>
+		<Label
+			Text="调整参数"
+			TextColor="Black"
+			FontSize="28"
+			HorizontalOptions="Center"/>
+	</NavigationPage.TitleView>
+
+	<StackLayout>
+		<Label
+			x:Name="Label1"
+			Text="压缩度：4"
+			FontSize="24"
+			TextColor="Black"
+			HorizontalOptions="Start"/>
+		<Stepper
+			x:Name="Stepper1"
+			Minimum="1"
+			Maximum="7"
+			Value="4"
+			ValueChanged="Stepper1_ValueChanged"/>
+		<Label
+			Text="角标："
+			FontSize="24"
+			TextColor="Black"
+			HorizontalOptions="Start"/>
+		<Entry
+			x:Name="Entry1"
+			Text="TK"
+			FontSize="22"/>
+		<Label
+			Text="兼容模式："
+			FontSize="24"
+			TextColor="Black"
+			HorizontalOptions="Start"/>
+		<Switch
+			x:Name="Switch1"
+			OnColor="DeepSkyBlue"
+			ThumbColor="White"
+			Toggled="Switch1_Toggled"
+			HorizontalOptions="Start"/>
+		<Label
+			Text="
+				1.压缩度：调整表图的压缩度（对应LSB隐写的位数），压缩度越大生成的图片越小，噪点越多&#10;
+				2.兼容模式：部分手机上用于选择非图片文件的控件有问题，所以添加这么一个东西，缺点是不能多选而且只能选图片&#10;"
+		FontSize="16"/>
+
+	</StackLayout>
+
+</ContentPage>

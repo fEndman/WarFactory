@@ -13,5 +13,6 @@ namespace WarFactory.MyInterface
         string GetAbsoluteSavePath();
         string GetSavePath();
         string GetVersion();
+        string[] GetLatestPictures(long timestamp);  //返回所有保存时间比这个时间点晚的图片
     }
 }

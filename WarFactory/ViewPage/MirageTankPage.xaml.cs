@@ -36,7 +36,10 @@ namespace WarFactory.ViewPage
         {
             photoFile1 = await MediaPicker.PickPhotoAsync();
             if (photoFile1 == null)
+            {
+                Image1.Source = null;
                 return;
+            }
             else
                 Image1.Source = photoFile1.FullPath;
 
@@ -47,7 +50,10 @@ namespace WarFactory.ViewPage
         {
             photoFile2 = await MediaPicker.PickPhotoAsync();
             if (photoFile2 == null)
+            {
+                Image2.Source = null;
                 return;
+            }
             else
                 Image2.Source = photoFile2.FullPath;
 

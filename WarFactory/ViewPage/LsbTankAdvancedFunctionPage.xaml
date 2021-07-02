@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WarFactory.ViewPage.LsbTankAdvancedFunctionPage">
+
+	<NavigationPage.TitleView>
+		<Label
+			Text="高级功能"
+			TextColor="Black"
+			FontSize="28"
+			HorizontalOptions="Center"/>
+	</NavigationPage.TitleView>
+
+	<StackLayout Spacing="20">
+		<StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+			<Label
+				Text="捕获模式："
+				TextColor="Black"
+				FontSize="24"/>
+			<Switch
+				x:Name="Switch1"
+				OnColor="DeepSkyBlue"
+				ThumbColor="Gray"
+				Toggled="Switch1_Toggled"
+				HorizontalOptions="StartAndExpand"/>
+		</StackLayout>
+		<Button
+			Text="一键添加新图"
+			TextColor="Black"
+			FontSize="22"
+			BackgroundColor="Gold"
+			CornerRadius="20"
+			Clicked="Button_Clicked_1"
+			HeightRequest="50"
+			WidthRequest="200"
+			HorizontalOptions="CenterAndExpand"/>
+		<Label
+			Text="捕获模式：开启后可以切到后台下载图片，过程中新增的图片都会被添加进要现形的队列！"
+			TextColor="DimGray"
+			FontSize="16"/>
+		<Label
+			Text="一键添加新图：点击后会一键添加自上次打开应用以来新增的图片到要现形的队列(忘记打开捕获模式也可以用这个代替)！"
+			TextColor="DimGray"
+			FontSize="16"/>
+	</StackLayout>
+
+</ContentPage>

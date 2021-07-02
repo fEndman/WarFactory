@@ -85,7 +85,7 @@
 		<Button
 			Text="生成"
 			TextColor="Black"
-			FontSize="Large"
+			FontSize="22"
 			BackgroundColor="DeepSkyBlue"
 			CornerRadius="20"
 			Clicked="Button_Clicked_1"
@@ -96,7 +96,7 @@
 		<Button
 			Text="保存"
 			TextColor="Black"
-			FontSize="Large"
+			FontSize="22"
 			BackgroundColor="MediumSeaGreen"
 			CornerRadius="20"
 			Clicked="Button_Clicked_2"
@@ -118,7 +118,7 @@
 		<Button
 			Text="调整参数"
 			TextColor="Black"
-			FontSize="20"
+			FontSize="16"
 			BackgroundColor="LightBlue"
 			CornerRadius="20"
 			Clicked="Button_Clicked_4"

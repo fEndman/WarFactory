@@ -98,5 +98,10 @@ namespace WarFactory.iOS
         {
             return AppInfo.VersionString;
         }
+
+        public string[] GetLatestPictures(long timestamp)
+        {
+            return null;
+        }
     }
 }
